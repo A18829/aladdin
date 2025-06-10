@@ -221,7 +221,6 @@ document.addEventListener("DOMContentLoaded", function() {
         // Chờ tất cả các Promise hoàn thành
         await Promise.all(fetchPromises);
     }
-
     function updateStatusCell(statusCellId, status) {
         const statusCell = document.getElementById(statusCellId);
         if (statusCell) {
