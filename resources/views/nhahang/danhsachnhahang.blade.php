@@ -68,24 +68,14 @@ Danh sách nhà hàng
                             <td>{{ $nhahang->ipmc }}</td>
                             <td>
                                 @if ($nhahang->status == 1)
-                                    <button class="btn btn-success">
-                                        <span class="btn-label">
-                                            <i class="fa fa-check"></i>
-                                        </span>
-                                        Hoạt động
-                                    </button>
+                                    <span class="badge badge-success">Hoạt động</span>
                                 @else
-                                    <button class="btn btn-warning">
-                                        <span class="btn-label">
-                                            <i class="fa fa-exclamation-circle"></i>
-                                        </span>
-                                        Không hoạt động
-                                    </button>
+                                    <span class="badge badge-danger">Không hoạt động</span>
                                 @endif
                             </td>
                             <td>
                                 <div class="form-button-action" style="display: flex; align-items: center;">
-                                    <button type="button" class="btn btn-link btn-primary btn-lg me-2" onclick="window.location='{{ route('nhahang.edit', $nhahang->id) }}'" data-original-title="Edit Task">
+                                    <button type="button" class="btn btn-link btn-primary me-2" onclick="window.location='{{ route('nhahang.edit', $nhahang->id) }}'" data-original-title="Edit Task">
                                         <i class="fa fa-edit"></i>
                                     </button>
                                     <form action="{{ route('nhahang.destroy', $nhahang->id) }}" method="POST" style="display: inline;">

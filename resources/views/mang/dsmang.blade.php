@@ -64,7 +64,7 @@ Danh sách mạng
                             <td>{{ $mang->diachi }}</td>
                             <td>
                                 <div class="form-button-action" style="display: flex; align-items: center;">
-                                    <button type="button" class="btn btn-link btn-primary btn-lg me-2" onclick="window.location='{{ route('mang.edit', $mang->id) }}'" data-original-title="Edit Task">
+                                    <button type="button" class="btn btn-link btn-primary me-2" onclick="window.location='{{ route('mang.edit', $mang->id) }}'" data-original-title="Edit Task">
                                         <i class="fa fa-edit"></i>
                                     </button>
 
