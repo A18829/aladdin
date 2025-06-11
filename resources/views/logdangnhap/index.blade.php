@@ -16,7 +16,7 @@ Danh sách mạng
         <div class="card-body">
             <div class="table-responsive">
                 
-                <a href="{{ route('logs.export') }}" class="badge badge-black mb-3">Xuất Logs</a>    
+                <a href="{{ route('logs.export') }}" class="badge badge-black mb-3"><i class="fa icon-cloud-download"></i> Xuất Logs</a>    
                 <table id="multi-filter-select"
                         class="table table-bordered table-head-bg-info table-bordered-bd-info mt-4">
                          <thead>

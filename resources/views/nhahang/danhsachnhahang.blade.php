@@ -14,7 +14,7 @@ Danh sách nhà hàng
         <div class="card-body">
           
             <div class="table-responsive">
-                <a href="{{ route('nhahangs.export') }}" class="badge badge-black mb-3">Xuất Excel</a>
+                <a href="{{ route('nhahangs.export') }}" class="badge badge-black mb-3"><i class="fa icon-cloud-download"></i> Xuất Excel</a>
                 <table id="multi-filter-select" class="table table-bordered table-head-bg-info table-bordered-bd-info mt-4">
                     <thead>
                         <tr>
@@ -32,7 +32,7 @@ Danh sách nhà hàng
                             <th>
                                 <button class="btn btn-warning" onclick="window.location.href='{{ route('nhahangcreate') }}'">
                                     <span class="btn-label"><i class="fa fa-plus"></i></span>
-                                    Thêm mới
+                                     Thêm mới
                                 </button>
                             </th>
                         </tr>
@@ -70,7 +70,7 @@ Danh sách nhà hàng
                                 @if ($nhahang->status == 1)
                                     <span class="badge badge-success">Hoạt động</span>
                                 @else
-                                    <span class="badge badge-danger">Không hoạt động</span>
+                                    <span class="badge badge-danger">Không hoạt động </span>
                                 @endif
                             </td>
                             <td>

@@ -13,7 +13,7 @@ Danh sách nhà hàng
         </div>
         <div class="card-body">
             <div class="table-responsive">
-                <a href="{{ route('cameras.export') }}" class="badge badge-black mb-3">Xuất Excel</a>
+                <a href="{{ route('cameras.export') }}" class="badge badge-black mb-3"><i class="fa icon-cloud-download"></i> Xuất Excel</a>
                 <table id="multi-filter-select" class="table table-bordered table-head-bg-info table-bordered-bd-info mt-4">
                     <thead>
                         <tr>

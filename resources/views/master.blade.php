@@ -151,7 +151,7 @@
               </li> -->
               <li class="nav-item">
                 <a data-bs-toggle="collapse" href="#sidebarLayouts">
-                  <i class="fas fa-th-list"></i>
+                  <i class="fas icon-camera"></i>
                   <p>Camera</p>
                   <span class="caret"></span>
                 </a>
@@ -172,7 +172,7 @@
               </li> 
               <li class="nav-item">
                 <a data-bs-toggle="collapse" href="#forms">
-                  <i class="fas fa-pen-square"></i>
+                  <i class="fas icon-globe"></i>
                   <p>Mạng</p>
                   <span class="caret"></span>
                 </a>
