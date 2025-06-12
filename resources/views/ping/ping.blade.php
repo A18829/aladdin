@@ -6,20 +6,14 @@ Danh sách mạng
 
 @section('content')
 
-<!--<div>
-    <p>Thời gian còn lại để refresh: <span id="countdown">20</span> giây</p>
-</div> -->
-
 <div class="col-md-6">
     <div class="card">
-
         <div class="card-header">
-            <h4 class="card-title">Ping ip tĩnh</h4>
+            <h4 class="card-title">Ping ip tĩnh: (Nền xanh: fail 1 lần, Nền vàng: fail >= 2 lần)</h4>
         </div>
         <div class="card-body">
             <div class="table-responsive">
-                <table id="multi-filter-select1"
-                        class="table table-bordered table-head-bg-info table-bordered-bd-info mt-4">
+                <table id="multi-filter-select1" class="table table-bordered table-head-bg-info table-bordered-bd-info mt-4">
                     <thead>
                         <tr>
                             <th>ID</th>
@@ -34,8 +28,7 @@ Danh sách mạng
                             </th>
                         </tr>
                     </thead>
-                     <tfoot>
-                    
+                    <tfoot>
                         <tr>
                             <th>ID</th>
                             <th>Tên</th>
@@ -50,18 +43,16 @@ Danh sách mạng
                             <td>{{ $ping1->id }}</td>
                             <td>{{ $ping1->nhahang }}</td>
                             <td>{{ $ping1->iptinh }}</td>
-                            <td id="status-{{ $ping1->iptinh }}-{{ $index }}">
-                                <!-- Trạng thái sẽ được cập nhật qua JavaScript -->
-                            </td>
+                            <td id="status-{{ $ping1->iptinh }}-{{ $index }}"></td>
                             <td>
                                 <div class="form-button-action" style="display: flex; align-items: center;">
-                                    <button type="button" class="btn btn-link btn-primary  me-2" onclick="window.location='{{ route('ping.edit', $ping1->id) }}'" data-original-title="Edit Task">
+                                    <button type="button" class="btn btn-link btn-primary me-2" onclick="window.location='{{ route('ping.edit', $ping1->id) }}'">
                                         <i class="fa fa-edit"></i>
                                     </button>
                                     <form action="{{ route('ping.destroy', $ping1->id) }}" method="POST" style="display: inline;">
                                         @csrf
                                         @method('DELETE')
-                                        <button type="submit" data-bs-toggle="tooltip" title="" class="btn btn-link btn-danger" data-original-title="Remove" onclick="return confirm('Bạn có chắc chắn muốn xóa nhà hàng này?')">
+                                        <button type="submit" class="btn btn-link btn-danger" onclick="return confirm('Bạn có chắc chắn muốn xóa nhà hàng này?')">
                                             <i class="fa fa-times"></i>
                                         </button>
                                     </form>
@@ -75,6 +66,7 @@ Danh sách mạng
         </div>
     </div>
 </div>
+
 <div class="col-md-6">
     <div class="card">
         <div class="card-header">
@@ -82,8 +74,7 @@ Danh sách mạng
         </div>
         <div class="card-body">
             <div class="table-responsive">
-                <table id="add-row"
-                        class="table table-bordered table-head-bg-info table-bordered-bd-info mt-4">
+                <table id="add-row" class="table table-bordered table-head-bg-info table-bordered-bd-info mt-4">
                     <thead>
                         <tr>
                             <th>ID</th>
@@ -98,8 +89,7 @@ Danh sách mạng
                             </th>
                         </tr>
                     </thead>
-                     <tfoot>
-                    
+                    <tfoot>
                         <tr>
                             <th>ID</th>
                             <th>Tên</th>
@@ -114,18 +104,16 @@ Danh sách mạng
                             <td>{{ $tenmiens->id }}</td>
                             <td>{{ $tenmiens->nhahang }}</td>
                             <td>{{ $tenmiens->tenmien }}</td>
-                            <td id="status-{{ $tenmiens->tenmien }}-{{ $index1 }}">
-                                <!-- Trạng thái sẽ được cập nhật qua JavaScript -->
-                            </td>
+                            <td id="status-{{ $tenmiens->tenmien }}-{{ $index1 }}"></td>
                             <td>
                                 <div class="form-button-action" style="display: flex; align-items: center;">
-                                    <button type="button" class="btn btn-link btn-primary  me-2" onclick="window.location='{{ route('ping.edittm', $tenmiens->id) }}'" data-original-title="Edit Task">
+                                    <button type="button" class="btn btn-link btn-primary me-2" onclick="window.location='{{ route('ping.edittm', $tenmiens->id) }}'">
                                         <i class="fa fa-edit"></i>
                                     </button>
                                     <form action="{{ route('ping.destroytm', $tenmiens->id) }}" method="POST" style="display: inline;">
                                         @csrf
                                         @method('DELETE')
-                                        <button type="submit" data-bs-toggle="tooltip" title="" class="btn btn-link btn-danger" data-original-title="Remove" onclick="return confirm('Bạn có chắc chắn muốn xóa tên miền này?')">
+                                        <button type="submit" class="btn btn-link btn-danger" onclick="return confirm('Bạn có chắc chắn muốn xóa tên miền này?')">
                                             <i class="fa fa-times"></i>
                                         </button>
                                     </form>
@@ -141,169 +129,75 @@ Danh sách mạng
 </div>
 
 <script>
-    $(document).ready(function() {
-        $('.table').DataTable();
+    document.addEventListener("DOMContentLoaded", function () {
+        const ipList = @json($mypings->pluck('iptinh'));
+        const tmList = @json($tenmien->pluck('tenmien'));
+
+        const statusCache = {}; // Lưu trạng thái để tránh ghi đè không cần thiết
+        const failureCount = {};
+
+        function setPingingStyle(cell) {
+            cell.style.backgroundColor = 'lightblue';
+        }
+
+        function updateStatusCell(cellId, status) {
+            const cell = document.getElementById(cellId);
+            if (!cell) return;
+
+            // Lưu trạng thái trước đó để kiểm tra thay đổi
+            if (statusCache[cellId] !== status) {
+                statusCache[cellId] = status;
+                cell.textContent = status;
+                cell.style.fontWeight = 'bold';
+                cell.style.color = status === 'Online' ? 'green' : 'red';
+            }
+
+            // Cập nhật màu nền theo trạng thái (nhưng KHÔNG khi đang ping)
+            if (status === 'Online') {
+                cell.style.backgroundColor = 'white';
+            } else if (failureCount[cellId] >= 2) {
+                cell.style.backgroundColor = 'yellow';
+            }
+        }
+
+        async function pingHost(host, index, prefix) {
+            const [base, port] = host.split(':');
+            const url = `ping-status/${encodeURIComponent(base)}${port ? '?port=' + encodeURIComponent(port) : ''}`;
+            const cellId = `status-${host}-${index}`;
+            const cell = document.getElementById(cellId);
+
+            if (cell) setPingingStyle(cell); // ✅ tô nền xanh khi đang ping
+
+            try {
+                const res = await fetch(url);
+                const data = await res.json();
+
+                if (data.status === 'Online') {
+                    failureCount[cellId] = 0;
+                } else {
+                    failureCount[cellId] = (failureCount[cellId] || 0) + 1;
+                }
+
+                updateStatusCell(cellId, data.status);
+            } catch (e) {
+                failureCount[cellId] = (failureCount[cellId] || 0) + 1;
+                updateStatusCell(cellId, 'Offline');
+            }
+        }
+
+        async function pingQueue(list, prefix) {
+            let i = 0;
+            while (true) {
+                if (list.length === 0) break;
+                await pingHost(list[i], i, prefix);
+                i = (i + 1) % list.length;
+                await new Promise(resolve => setTimeout(resolve, 200)); // để dễ thấy màu hơn
+            }
+        }
+
+        pingQueue(ipList, 'ip');
+        pingQueue(tmList, 'tm');
     });
 </script>
-
-
-
-<script>
-document.addEventListener("DOMContentLoaded", function() {
-    const ipList = @json($mypings->pluck('iptinh'));
-
-    async function fetchData() {
-        const fetchPromises = ipList.map(async (ipWithPort, index) => {
-            const statusCellId = 'status-' + ipWithPort + '-' + index;
-
-            // Tách IP và port nếu có
-            const [ip, port] = ipWithPort.split(':');
-            const url = `ping-status/${encodeURIComponent(ip)}${port ? '?port=' + encodeURIComponent(port) : ''}`;
-
-            try {
-                const response = await fetch(url);
-                if (!response.ok) throw new Error('Lỗi: ' + response.status);
-                
-                const data = await response.json();
-                updateStatusCell(statusCellId, data.status);
-            } catch (error) {
-                console.error("Lỗi khi tải dữ liệu:", error);
-            }
-        });
-
-        // Chờ tất cả các Promise hoàn thành
-        await Promise.all(fetchPromises);
-    }
-
-    function updateStatusCell(statusCellId, status) {
-        const statusCell = document.getElementById(statusCellId);
-        if (statusCell) {
-            statusCell.textContent = status;
-            statusCell.className = status === 'Online' ? 'online' : 'offline';
-            statusCell.style.fontWeight = "bold";
-
-            // Đổi màu dựa trên trạng thái
-            statusCell.style.color = status === 'Online' ? "green" : "red";
-            statusCell.style.backgroundColor = status === 'Online' ? "transparent" : "yellow"; // Nếu Offline, đổi màu nền thành vàng
-        } else {
-            console.error(`Không tìm thấy phần tử với ID: ${statusCellId}`);
-        }
-    }
-
-    fetchData(); // Gọi ngay khi trang tải
-    setInterval(fetchData, 30000); // Refresh bảng mỗi 20 giây
-});
-</script>
-
-<script>
-document.addEventListener("DOMContentLoaded", function() {
-    const tmList = @json($tenmien->pluck('tenmien'));
-
-    async function fetchData() {
-        const fetchPromises = tmList.map(async (ipWithPort, index1) => {
-            const statusCellId = 'status-' + ipWithPort + '-' + index1;
-
-            // Tách IP và port nếu có
-            const [ip, port] = ipWithPort.split(':');
-            const url = `ping-status/${encodeURIComponent(ip)}${port ? '?port=' + encodeURIComponent(port) : ''}`;
-
-            try {
-                const response = await fetch(url);
-                if (!response.ok) throw new Error('Lỗi: ' + response.status);
-                
-                const data = await response.json();
-                updateStatusCell(statusCellId, data.status);
-            } catch (error) {
-                console.error("Lỗi khi tải dữ liệu:", error);
-            }
-        });
-
-        // Chờ tất cả các Promise hoàn thành
-        await Promise.all(fetchPromises);
-    }
-    function updateStatusCell(statusCellId, status) {
-        const statusCell = document.getElementById(statusCellId);
-        if (statusCell) {
-            statusCell.textContent = status;
-            statusCell.className = status === 'Online' ? 'online' : 'offline';
-            statusCell.style.fontWeight = "bold";
-
-            if (status === 'Online') {
-                statusCell.style.color = "green";
-                statusCell.style.backgroundColor = "transparent";
-            } else {
-                statusCell.style.color = "red";
-                statusCell.style.backgroundColor = "yellow"; // Nếu Offline, đổi màu nền thành vàng
-            }
-        } else {
-            console.error(`Không tìm thấy phần tử với ID: ${statusCellId}`);
-        }
-    }
-
-    fetchData(); // Gọi ngay khi trang tải
-    setInterval(fetchData, 30000); // Refresh bảng mỗi 20 giây
-});
-</script>
-
-<!-- <script>
-document.addEventListener("DOMContentLoaded", function() {
-    let countdown = 20; // Thời gian đếm ngược (giây)
-    const countdownDisplay = document.getElementById("countdown"); // Phần tử hiển thị đếm ngược
-
-    async function fetchData() {
-        const ipList = @json($mypings->pluck('iptinh'));
-
-        for (let index = 0; index < ipList.length; index++) {
-            const ipWithPort = ipList[index];
-            const statusCellId = 'status-' + ipWithPort + '-' + index;
-
-            const parts = ipWithPort.split(':');
-            const ip = parts[0]; // IP
-            const port = parts[1] || null; // Port (nếu có)
-
-            if (port) {
-                try {
-                    let url = 'ping-status/' + encodeURIComponent(ip) + '?port=' + encodeURIComponent(port);
-                    const response = await fetch(url);
-                    if (!response.ok) {
-                        throw new Error('Lỗi: ' + response.status);
-                    }
-                    const data = await response.json();
-
-                    const statusCell = document.getElementById(statusCellId);
-                    if (statusCell) {
-                        statusCell.textContent = data.status;
-                        statusCell.className = data.status === 'Online' ? 'online' : 'offline';
-                        statusCell.style.fontWeight = "bold";
-                        statusCell.style.color = data.status === 'Online' ? "green" : "red";
-                    }
-                } catch (error) {
-                    console.error("Lỗi khi tải dữ liệu:", error);
-                }
-            }
-        }
-    }
-
-    function startCountdown() {
-        const interval = setInterval(() => {
-            countdownDisplay.textContent = countdown;
-            countdown--;
-
-            if (countdown < 0) {
-                clearInterval(interval);
-                fetchData(); // Gọi lại hàm fetchData khi đếm ngược xong
-                countdown = 20; // Reset lại đếm ngược
-                startCountdown(); // Bắt đầu lại đếm ngược
-            }
-        }, 1000);
-    }
-
-    fetchData(); // Gọi ngay khi trang tải
-    startCountdown(); // Bắt đầu đếm ngược
-});
-</script>  -->  
-
-
-
 
 @endsection
