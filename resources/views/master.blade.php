@@ -771,8 +771,7 @@
               </ul>
             </nav>
             <div class="copyright">
-              2025, made with <i class="fa fa-heart heart text-danger"></i> by
-              <a href="">Hieu</a>
+              2025, <a href=""></a>
             </div>
             <div>
               Distributed by
@@ -984,6 +983,7 @@
     <script src="{{ asset('gd1/assets/js/plugin/chart.js/chart.min.js') }}"></script>
     <!-- jQuery Scrollbar -->
     <script src="{{ asset('gd1/assets/js/plugin/jquery-scrollbar/jquery.scrollbar.min.js') }}"></script>
+    <script src="{{ asset('gd1/assets/js/plugin/sweetalert/sweetalert.min.js') }}"></script>
     <!-- Datatables -->
     <script src="{{ asset('gd1/assets/js/plugin/datatables/datatables.min.js') }}"></script>
     <!-- Kaiadmin JS -->
@@ -1085,5 +1085,6 @@
         });
       });
     </script>
+     
   </body>
 </html>

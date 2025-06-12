@@ -73,7 +73,7 @@ Dashboard
         <div class="col-md-6">
             <div class="card">
                 <div class="card-header">
-                    <div class="card-title">Đường truyền internet</div>
+                    <div class="card-title">Đường truyền internet: {{ $duongtruyen->total_mang }}</div>
                 </div>
                 <div class="card-body">
                     <div class="chart-container">
@@ -138,6 +138,7 @@ Dashboard
         var data = [];
         var stt11 =[];
         var stt00 =[];
+        var stt22 =[];
         var ruijie = [];
         var daucam = [];
         var matcam = [];
@@ -150,6 +151,7 @@ Dashboard
             data.push({{ $item->count }});
             stt11.push({{ $item->stt1 }});
             stt00.push({{ $item->stt0 }});
+            stt22.push({{ $item->stt2 }});
             ruijie.push({{ $item->ruijie }});
             daucam.push({{ $item->daucam }});
             matcam.push({{ $item->matcam }});
@@ -232,7 +234,6 @@ Dashboard
         var mynhamang = new Chart(document.getElementById('mang').getContext('2d'), {
             type: "bar",
             data: {
-            
                 datasets: [
                     {   
                         label: "VIETTEL ",
@@ -415,9 +416,15 @@ Dashboard
                                               data: stt11,
                                             },
                                             {
-                                              label: "Chưa hoạt động",
+                                              label: "Sắp hoạt động",
                                               backgroundColor: "#fdaf4b",
                                               borderColor: "#fdaf4b",
+                                              data: stt22,
+                                            },
+                                            {
+                                              label: "Chưa hoạt động",
+                                              backgroundColor: "#f3545d",
+                                              borderColor: "#f3545d",
                                               data: stt00,
                                             },
                                             
@@ -431,7 +438,7 @@ Dashboard
                                           },
                                           title: {
                                             display: true,
-                                            text: " Tổng số nhà hàng: {{ $tong->total_nhahang }} | Hoạt động: {{ $data->sum('stt1') }} | Chưa hoạt động: {{ $data->sum('stt0') }}",
+                                            text: " Tổng số nhà hàng: {{ $tong->total_nhahang }} | Hoạt động: {{ $data->sum('stt1') }} | Sắp hoạt động: {{ $data->sum('stt2') }} | Chưa hoạt động: {{ $data->sum('stt0') }}",
                                           },
                                           tooltips: {
                                             mode: "index",

@@ -25,7 +25,7 @@ Danh sách nhà hàng
                             <th>Pass</th>
                             <th>Passcam</th>
                             <th>
-                                <button class="btn btn-warning" onclick="window.location.href='{{ route('cameracreate') }}'">
+                                <button class="btn btn-warning btn-sm" onclick="window.location.href='{{ route('cameracreate') }}'">
                                     <span class="btn-label"><i class="fa fa-plus"></i></span>
                                     Thêm mới
                                 </button>

@@ -31,7 +31,7 @@ Danh sách mạng
                             <th>Account</th>
                             <th>Pass</th>
                             <th>Địa chỉ</th>
-                            <th><button class="btn btn-warning" onclick="window.location.href='{{ route('mangcreate') }}'">
+                            <th><button class="btn btn-warning btn-sm" onclick="window.location.href='{{ route('mangcreate') }}'">
                     <span class="btn-label">
                         <i class="fa fa-plus"></i>
                     </span>

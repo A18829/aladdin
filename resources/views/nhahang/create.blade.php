@@ -66,6 +66,7 @@ Thêm Mới Nhà Hàng
                         <label for="status">Trạng thái</label>
                             <select class="form-select" id="status" name="status">
                                 <option value="1">Hoạt động</option>
+                                <option value="2">Sắp hoạt động</option>
                                 <option value="0">Không hoạt động</option>
                             </select>
 

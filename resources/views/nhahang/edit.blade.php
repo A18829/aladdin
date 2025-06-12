@@ -69,9 +69,11 @@ Chỉnh Sửa Nhà Hàng
                         <label for="status">Trạng thái</label>
                             <select class="form-select" id="status" name="status">
                                 <option value="{{ $nhahang->status }}" selected>
-                                    {{ $nhahang->status == 1 ? 'Hoạt động' : 'Không hoạt động' }}
+                                    {{ $nhahang->status == 1 ? 'Hoạt động' : ($nhahang->status == 2 ? 'Sắp hoạt động' : 'Không hoạt động') }}
+
                                 </option>
                                 <option value="1">Hoạt động</option>
+                                <option value="2">Sắp hoạt động</option>
                                 <option value="0">Không hoạt động</option>
                             </select>
 

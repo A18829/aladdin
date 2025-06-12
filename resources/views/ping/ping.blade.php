@@ -9,7 +9,7 @@ Danh sách mạng
 <div class="col-md-6">
     <div class="card">
         <div class="card-header">
-            <h4 class="card-title">Ping ip tĩnh: (Nền xanh: fail 1 lần, Nền vàng: fail >= 2 lần)</h4>
+            <h4 class="card-title">Ping ip tĩnh: (Nền xanh: fail 1 lần. Nền vàng: fail >= 2 lần)</h4>
         </div>
         <div class="card-body">
             <div class="table-responsive">
@@ -21,7 +21,7 @@ Danh sách mạng
                             <th>IP</th>
                             <th>Trạng thái</th>
                             <th>
-                                <button class="btn btn-warning" onclick="window.location.href='{{ route('pingcreate') }}'">
+                                <button class="btn btn-warning btn-sm" onclick="window.location.href='{{ route('pingcreate') }}'">
                                     <span class="btn-label"><i class="fa fa-plus"></i></span>
                                     Thêm mới
                                 </button>
@@ -46,13 +46,13 @@ Danh sách mạng
                             <td id="status-{{ $ping1->iptinh }}-{{ $index }}"></td>
                             <td>
                                 <div class="form-button-action" style="display: flex; align-items: center;">
-                                    <button type="button" class="btn btn-link btn-primary me-2" onclick="window.location='{{ route('ping.edit', $ping1->id) }}'">
+                                    <button type="button" class=" btn-link btn-primary me-4 " onclick="window.location='{{ route('ping.edit', $ping1->id) }}'">
                                         <i class="fa fa-edit"></i>
                                     </button>
                                     <form action="{{ route('ping.destroy', $ping1->id) }}" method="POST" style="display: inline;">
                                         @csrf
                                         @method('DELETE')
-                                        <button type="submit" class="btn btn-link btn-danger" onclick="return confirm('Bạn có chắc chắn muốn xóa nhà hàng này?')">
+                                        <button type="submit" class=" btn-link btn-danger me-4" onclick="return confirm('Bạn có chắc chắn muốn xóa nhà hàng này?')">
                                             <i class="fa fa-times"></i>
                                         </button>
                                     </form>
@@ -82,7 +82,7 @@ Danh sách mạng
                             <th>Tên miền</th>
                             <th>Trạng thái</th>
                             <th>
-                                <button class="btn btn-warning" onclick="window.location.href='{{ route('pingcreatetm') }}'">
+                                <button class="btn btn-warning btn-sm" onclick="window.location.href='{{ route('pingcreatetm') }}'">
                                     <span class="btn-label"><i class="fa fa-plus"></i></span>
                                     Thêm mới
                                 </button>
@@ -107,13 +107,13 @@ Danh sách mạng
                             <td id="status-{{ $tenmiens->tenmien }}-{{ $index1 }}"></td>
                             <td>
                                 <div class="form-button-action" style="display: flex; align-items: center;">
-                                    <button type="button" class="btn btn-link btn-primary me-2" onclick="window.location='{{ route('ping.edittm', $tenmiens->id) }}'">
+                                    <button type="button" class="btn-link btn-primary me-4" onclick="window.location='{{ route('ping.edittm', $tenmiens->id) }}'">
                                         <i class="fa fa-edit"></i>
                                     </button>
                                     <form action="{{ route('ping.destroytm', $tenmiens->id) }}" method="POST" style="display: inline;">
                                         @csrf
                                         @method('DELETE')
-                                        <button type="submit" class="btn btn-link btn-danger" onclick="return confirm('Bạn có chắc chắn muốn xóa tên miền này?')">
+                                        <button type="submit" class="btn-link btn-danger" onclick="return confirm('Bạn có chắc chắn muốn xóa tên miền này?')">
                                             <i class="fa fa-times"></i>
                                         </button>
                                     </form>
@@ -155,6 +155,8 @@ Danh sách mạng
             // Cập nhật màu nền theo trạng thái (nhưng KHÔNG khi đang ping)
             if (status === 'Online') {
                 cell.style.backgroundColor = 'white';
+            } else if (failureCount[cellId] = 1) {
+                cell.style.backgroundColor = 'lightgreen';
             } else if (failureCount[cellId] >= 2) {
                 cell.style.backgroundColor = 'yellow';
             }

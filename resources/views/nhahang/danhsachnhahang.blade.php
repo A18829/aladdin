@@ -28,9 +28,9 @@ Danh sách nhà hàng
                             <th>Địa chỉ</th>                          
                             <th>Ip tĩnh</th>
                             <th>Ip máy chủ</th>
-                            <th >Trạng thái {{ $nhahangs->sum('status') }}/{{ $nhahangs->count('status') }}</th>
+                            <th >Trạng thái {{ $nhahangs->where('status', 1)->count() }}/{{ $nhahangs->where('status', 2)->count() }}/{{ $nhahangs->count('status') }}</th>
                             <th>
-                                <button class="btn btn-warning" onclick="window.location.href='{{ route('nhahangcreate') }}'">
+                                <button class="btn btn-warning btn-sm" onclick="window.location.href='{{ route('nhahangcreate') }}'">
                                     <span class="btn-label"><i class="fa fa-plus"></i></span>
                                      Thêm mới
                                 </button>
@@ -59,7 +59,13 @@ Danh sách nhà hàng
                             <td>{{ $nhahang->id }}</td>
                             <td>{{ $nhahang->vung }}</td>
                             <td>{{ $nhahang->nhathau }}</td>
-                            <td>{{ $nhahang->ruijie }}</td>
+                            <td>     
+                                @if ($nhahang->ruijie == 1)
+                                    <span class="badge badge-success">Có GW</span>
+                                @else
+                                    <span class="badge badge-danger">Không GW</span>
+                                @endif
+                            </td>
                             <td>{{ $nhahang->daucam }}</td>
                             <td>{{ $nhahang->matcam }}</td>
                             <td>{{ $nhahang->ten }}</td>
@@ -69,6 +75,8 @@ Danh sách nhà hàng
                             <td>
                                 @if ($nhahang->status == 1)
                                     <span class="badge badge-success">Hoạt động</span>
+                                @elseif ($nhahang->status == 2)
+                                    <span class="badge badge-warning">Sắp hoạt động</span>
                                 @else
                                     <span class="badge badge-danger">Không hoạt động </span>
                                 @endif
@@ -82,6 +90,7 @@ Danh sách nhà hàng
                                         @csrf
                                         @method('DELETE')
                                         <button type="submit" data-bs-toggle="tooltip" title="" class="btn btn-link btn-danger" data-original-title="Remove" onclick="return confirm('Bạn có chắc chắn muốn xóa nhà hàng này?')">
+
                                             <i class="fa fa-times"></i>
                                         </button>
                                     </form>

@@ -20,6 +20,7 @@ class dashboardcontroller extends Controller
                                 DB::raw('SUM(daucam) as daucam'),
                                 DB::raw('SUM(matcam) as matcam'),
                                 DB::raw('SUM(CASE WHEN status = 1 THEN 1 ELSE 0 END) as stt1'),
+                                DB::raw('SUM(CASE WHEN status = 2 THEN 1 ELSE 0 END) as stt2'),
                                 DB::raw('SUM(CASE WHEN status = 0 THEN 1 ELSE 0 END) as stt0'))
             ->groupBy('vung')
             ->get();
@@ -40,13 +41,16 @@ class dashboardcontroller extends Controller
                     DB::raw('SUM(matcam) as total_matcam'),
                     DB::raw('SUM(ruijie) as total_ruijie')
                 )->first(); // Sử dụng first() để lấy một bản ghi duy nhất
+        $duongtruyen = mang::select(
+                    DB::raw('count(id) as total_mang')
+                )->first(); // Sử dụng first() để lấy một bản ghi duy nhất
 
         $nhamang = mang::select('nhamang', 
                                 DB::raw('count(*) as count'))
             ->groupBy('nhamang')
             ->get(); 
         // Trả về view với dữ liệu
-        return view('dashboard.db', compact('data','tong','rj','nhathau','nhamang'));
+        return view('dashboard.db', compact('data','tong','rj','nhathau','nhamang','duongtruyen'));
         var_dump($nhamang);
     }
 
