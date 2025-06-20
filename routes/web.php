@@ -23,6 +23,7 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/nhahangcreate', [NhaHangController::class, 'create'])->name('nhahangcreate');
     Route::post('/nhahang/store', [NhaHangController::class, 'store'])->name('nhahang.store');
     Route::delete('/nhahang/{id}', [NhaHangController::class, 'destroy'])->name('nhahang.destroy');
+    Route::post('/checknhahang', [NhaHangController::class, 'checknhahang'])->name('check.nhahang'); //check tên khi create
     
     Route::get('/mang', [mangcontroller::class, 'index'])->name('dsmang');
     Route::get('/mang/{id}/edit', [mangcontroller::class, 'edit'])->name('mang.edit');
@@ -30,6 +31,7 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/mangcreate', [mangcontroller::class, 'create'])->name('mangcreate');
     Route::post('/mang/store', [mangcontroller::class, 'store'])->name('mang.store');
     Route::delete('/mang/{id}', [mangcontroller::class, 'destroy'])->name('mang.destroy');
+    Route::post('/checkmang', [mangcontroller::class, 'checkmang'])->name('check.mang'); //check tên khi create
 
     Route::get('/ping', [myPingController::class, 'index'])->name('ping');
     Route::get('/ping-status/{ip}', [myPingController::class, 'pingStatus']);

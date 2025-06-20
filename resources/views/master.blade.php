@@ -746,7 +746,7 @@
                 @yield('content')
 
 
-
+                
 
 
             </div>    
@@ -992,6 +992,7 @@
     <script src="{{ asset('gd1/assets/js/setting-demo2.js') }}"></script>
     <script src="{{ asset('gd1/assets/js/bang.js') }}"></script>
     <script src="{{ asset('gd1/assets/js/plugin/bootstrap-notify/bootstrap-notify.min.js') }}"></script>
+    
 
     <!-- Thông báo cập nhật thành công, thất bại -->
     @if (session('success'))
@@ -1039,12 +1040,14 @@
                         from: placementFrom,
                         align: placementAlign,
                     },
-                    delay: 10000, // Thời gian hiển thị là 10 giây
+                    delay: 30000, // Thời gian hiển thị là 10 giây
                     timer: 1000,
                 });
             });
         </script>
     @endif
+
+
      
   </body>
 </html>

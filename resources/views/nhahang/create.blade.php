@@ -43,7 +43,7 @@ Thêm Mới Nhà Hàng
                     </div>
                     <div class="form-group">
                         <label for="daucam" class="form-label">Đầu cam</label>
-                        <input type="text" class="form-control" id="daucam" name="daucam" required>
+                        <input type="number" class="form-control" id="daucam" name="daucam" required>
                     </div>                    
                 </div>
 
@@ -51,12 +51,13 @@ Thêm Mới Nhà Hàng
                 <div class="col-md-6 col-lg-4">
                     <div class="form-group">
                         <label for="matcam" class="form-label">Mắt cam</label>
-                        <input type="text" class="form-control" id="matcam" name="matcam" required>
+                        <input type="number" class="form-control" id="matcam" name="matcam" required>
                     </div>
 
                     <div class="form-group">
                         <label for="ten" class="form-label">Tên</label>
-                        <input type="text" class="form-control" id="ten" name="ten" required>
+                        <input type="text" class="form-control" id="ten" name="ten" value="{{ old('ten') }}" required>
+                        <div id="error-message" style="color: red; display: none;"></div>
                     </div>
                     <div class="form-group">
                         <label for="diachi" class="form-label">Địa Chỉ</label>
@@ -98,4 +99,31 @@ Thêm Mới Nhà Hàng
     <a href="{{ route('dsnhahang') }}" class="btn btn-secondary">Hủy</a>
 </form>
 
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script>
+$(document).ready(function() {
+    $('#ten').on('blur', function() { // Thay '#ten' bằng ID của trường bạn muốn kiểm tra
+        var fieldValue = $(this).val();
+
+        $.ajax({
+            url: '{{ route('check.nhahang') }}',
+            method: 'POST',
+            data: {
+                field: fieldValue,
+                _token: '{{ csrf_token() }}' // Đảm bảo có CSRF token
+            },
+            success: function(response) {
+                if (response.exists) {
+                    $('#error-message').text('Nhà hàng đã tồn tại!').show();
+                } else {
+                    $('#error-message').text('').hide();
+                }
+            },
+            error: function(xhr) {
+                console.error(xhr);
+            }
+        });
+    });
+});
+</script>
 @endsection

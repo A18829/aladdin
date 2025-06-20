@@ -36,17 +36,20 @@ class cameraController extends Controller
             'pass' => 'required|string|max:255',
             'passcam' => 'required|string|max:255',
         ]);
+        try {
+            $camera = camera::findOrFail($id);
+            $camera->nhahang = $request->input('nhahang');
+            $camera->domain = $request->input('domain');
+            $camera->port = $request->input('port');
+            $camera->user = $request->input('user');
+            $camera->pass = $request->input('pass');
+            $camera->passcam = $request->input('passcam');
+            $camera->save();
 
-        $camera = camera::findOrFail($id);
-        $camera->nhahang = $request->input('nhahang');
-        $camera->domain = $request->input('domain');
-        $camera->port = $request->input('port');
-        $camera->user = $request->input('user');
-        $camera->pass = $request->input('pass');
-        $camera->passcam = $request->input('passcam');
-        $camera->save();
-
-        return redirect()->route('dscamera')->with('success', 'Cập nhật tài khoản thành công.');
+            return redirect()->route('dscamera')->with('success', 'Cập nhật tài khoản thành công.');
+        } catch (\Exception $e) {
+            return back()->withErrors(['error' => 'Cập nhật thất bại: ' . $e->getMessage()]);
+        }   
     } 
 
      public function create()
@@ -66,21 +69,25 @@ class cameraController extends Controller
             'passcam' => 'required|string|max:255',
         ]);    
 
+        try {
         // Tự sinh ID
-        $maxId = camera::max('id');
-        $newId = $maxId ? $maxId + 1 : 1;
+            $maxId = camera::max('id');
+            $newId = $maxId ? $maxId + 1 : 1;
 
-        camera::create([
-            'id' => $newId,
-            'nhahang' => $request->nhahang,
-            'domain' => $request->domain,
-            'port' => $request->port,
-            'user' => $request->user,
-            'pass' => $request->pass,
-            'passcam' => $request->passcam,
-        ]);
+            camera::create([
+                'id' => $newId,
+                'nhahang' => $request->nhahang,
+                'domain' => $request->domain,
+                'port' => $request->port,
+                'user' => $request->user,
+                'pass' => $request->pass,
+                'passcam' => $request->passcam,
+            ]);
 
-        return redirect()->route('dscamera')->with('success', 'Tài khoản đã được thêm mới!');
+            return redirect()->route('dscamera')->with('success', 'Tài khoản đã được thêm mới!');
+        } catch (\Exception $e) {
+            return back()->withErrors(['error' => 'Không thể thêm tài khoản: ' . $e->getMessage()]);
+        }    
     }
 
     public function destroy($id)

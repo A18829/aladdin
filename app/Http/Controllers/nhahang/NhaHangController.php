@@ -45,22 +45,25 @@ class NhaHangController extends Controller
             'ipmc' => 'required|string|max:255',
             'status' => 'required|string|max:255',
         ]);
+        try {
+            $nhahang = NhaHang::findOrFail($id);
+            $nhahang->vung = $request->input('vung');
+            $nhahang->nhathau = $request->input('nhathau');
+            $nhahang->ruijie = $request->input('ruijie');
+            $nhahang->daucam = $request->input('daucam');
+            $nhahang->matcam = $request->input('matcam');
+            $nhahang->ten = $request->input('ten');
+            $nhahang->diachi = $request->input('diachi');
+            $nhahang->sdt = $request->input('sdt');
+            $nhahang->iptinh = $request->input('iptinh');
+            $nhahang->ipmc = $request->input('ipmc');
+            $nhahang->status = $request->input('status');
+            $nhahang->save();
 
-        $nhahang = NhaHang::findOrFail($id);
-        $nhahang->vung = $request->input('vung');
-        $nhahang->nhathau = $request->input('nhathau');
-        $nhahang->ruijie = $request->input('ruijie');
-        $nhahang->daucam = $request->input('daucam');
-        $nhahang->matcam = $request->input('matcam');
-        $nhahang->ten = $request->input('ten');
-        $nhahang->diachi = $request->input('diachi');
-        $nhahang->sdt = $request->input('sdt');
-        $nhahang->iptinh = $request->input('iptinh');
-        $nhahang->ipmc = $request->input('ipmc');
-        $nhahang->status = $request->input('status');
-        $nhahang->save();
-
-        return redirect()->route('dsnhahang')->with('success', 'Cập nhật nhà hàng thành công.');
+            return redirect()->route('dsnhahang')->with('success', 'Cập nhật nhà hàng thành công.');
+        } catch (\Exception $e) {
+            return back()->withErrors(['error' => 'Cập nhật thất bại: ' . $e->getMessage()]);
+        }    
     }
 
     
@@ -130,6 +133,17 @@ class NhaHangController extends Controller
     {
         $nhahangs = nhahang::all(); // Lấy tất cả dữ liệu từ bảng Nhahang
         return Excel::download(new ExcelExport($nhahangs, 'nhahang'), 'nhahangs.xlsx');
+    }
+
+    public function checknhahang(Request $request)
+    {
+        $request->validate([
+            'field' => 'required|string|max:255',
+        ]);
+
+        $exists = NhaHang::where('ten', $request->field)->exists();
+
+        return response()->json(['exists' => $exists]);
     }
 
     

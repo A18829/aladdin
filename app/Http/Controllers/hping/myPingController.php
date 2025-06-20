@@ -71,13 +71,16 @@ class myPingController extends Controller
             'nhahang' => 'required|string|max:255',
             'iptinh' => 'required|string|max:255',       
         ]);
+        try {
+            $mang = ping::findOrFail($id);
+            $mang->nhahang = $request->input('nhahang');
+            $mang->iptinh = $request->input('iptinh');
+            $mang->save();
 
-        $mang = ping::findOrFail($id);
-        $mang->nhahang = $request->input('nhahang');
-        $mang->iptinh = $request->input('iptinh');
-        $mang->save();
-
-        return redirect()->route('ping')->with('success', 'Cập nhật mạng thành công.');
+            return redirect()->route('ping')->with('success', 'Cập nhật ip thành công.');
+        } catch (\Exception $e) {
+            return back()->withErrors(['error' => 'Cập nhật thất bại: ' . $e->getMessage()]);
+        }       
     }
 
     public function updatetm(Request $request, $id)
@@ -86,13 +89,16 @@ class myPingController extends Controller
             'nhahang' => 'required|string|max:255',
             'tenmien' => 'required|string|max:255',       
         ]);
+        try {
+            $mang = tenmien::findOrFail($id);
+            $mang->nhahang = $request->input('nhahang');
+            $mang->tenmien = $request->input('tenmien');
+            $mang->save();
 
-        $mang = tenmien::findOrFail($id);
-        $mang->nhahang = $request->input('nhahang');
-        $mang->tenmien = $request->input('tenmien');
-        $mang->save();
-
-        return redirect()->route('ping')->with('success', 'Cập nhật tên miền thành công.');
+            return redirect()->route('ping')->with('success', 'Cập nhật tên miền thành công.');
+        } catch (\Exception $e) {
+            return back()->withErrors(['error' => 'Cập nhật thất bại: ' . $e->getMessage()]);
+        }       
     }
 
     
@@ -115,18 +121,21 @@ class myPingController extends Controller
             'iptinh' => 'required|string|max:255',
         ]);
     
+        try {
+            // Tự sinh ID
+            $maxId = ping::max('id');
+            $newId = $maxId ? $maxId + 1 : 1;
 
-        // Tự sinh ID
-        $maxId = ping::max('id');
-        $newId = $maxId ? $maxId + 1 : 1;
+            ping::create([
+                'id' => $newId,
+                'nhahang' => $request->nhahang,
+                'iptinh' => $request->iptinh,
+            ]);
 
-        ping::create([
-            'id' => $newId,
-            'nhahang' => $request->nhahang,
-            'iptinh' => $request->iptinh,
-        ]);
-
-        return redirect()->route('ping')->with('success', 'Mạng đã được thêm mới!');
+            return redirect()->route('ping')->with('success', 'Mạng đã được thêm mới!');
+        } catch (\Exception $e) {
+            return back()->withErrors(['error' => 'Cập nhật thất bại: ' . $e->getMessage()]);
+        }       
     }
 
     public function storetm(Request $request)
@@ -136,18 +145,21 @@ class myPingController extends Controller
             'tenmien' => 'required|string|max:255',
         ]);
     
-
+        try{ 
         // Tự sinh ID
-        $maxId = tenmien::max('id');
-        $newId = $maxId ? $maxId + 1 : 1;
+            $maxId = tenmien::max('id');
+            $newId = $maxId ? $maxId + 1 : 1;
 
-        tenmien::create([
-            'id' => $newId,
-            'nhahang' => $request->nhahang,
-            'tenmien' => $request->tenmien,
-        ]);
+            tenmien::create([
+                'id' => $newId,
+                'nhahang' => $request->nhahang,
+                'tenmien' => $request->tenmien,
+            ]);
 
-        return redirect()->route('ping')->with('success', 'Tên miền đã được thêm mới!');
+            return redirect()->route('ping')->with('success', 'Tên miền đã được thêm mới!');
+        } catch (\Exception $e) {
+            return back()->withErrors(['error' => 'Cập nhật thất bại: ' . $e->getMessage()]);
+        }       
     }
 
     public function destroy($id)

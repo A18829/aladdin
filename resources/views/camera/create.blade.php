@@ -25,7 +25,7 @@ Thêm Mới Nhà Hàng
                     </div>
                     <div class="form-group">
                         <label for="port" class="form-label">Port</label>
-                        <input type="text" class="form-control" id="port" name="port" required>
+                        <input type="number" class="form-control" id="port" name="port" required>
                     </div>                    
                 </div>
                 <div class="col-md-6 col-lg-4">

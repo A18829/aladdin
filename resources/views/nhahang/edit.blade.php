@@ -49,13 +49,13 @@ Chỉnh Sửa Nhà Hàng
                     </div>
                     <div class="form-group">
                         <label for="daucam" class="form-label">Đầu cam</label>
-                        <input type="text" class="form-control" id="daucam" name="daucam" value="{{ $nhahang->daucam }}" required>
+                        <input type="number" class="form-control" id="daucam" name="daucam" value="{{ $nhahang->daucam }}" required>
                     </div>
                 </div>
                 <div class="col-md-6 col-lg-4">    
                     <div class="form-group">
                         <label for="matcam" class="form-label">Mắt cam</label>
-                        <input type="text" class="form-control" id="matcam" name="matcam" value="{{ $nhahang->matcam }}" required>
+                        <input type="number" class="form-control" id="matcam" name="matcam" value="{{ $nhahang->matcam }}" required>
                     </div>
                     <div class="form-group">
                         <label for="ten" class="form-label">Tên</label>

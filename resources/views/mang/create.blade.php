@@ -25,7 +25,8 @@ Thêm Mới Mạng
     </div>
     <div class="mb-3">
         <label for="account" class="form-label">Account</label>
-        <input type="text" class="form-control" id="account" name="account" required>
+        <input type="text" class="form-control" id="account" name="account" value="{{ old('account') }}" required>
+        <div id="error-message" style="color: red; display: none;"></div>
     </div>
     <div class="mb-3">
         <label for="pass" class="form-label">Pass</label>
@@ -39,4 +40,31 @@ Thêm Mới Mạng
     <a href="{{ route('dsmang') }}" class="btn btn-secondary">Hủy</a>
 </form>
 
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script>
+$(document).ready(function() {
+    $('#account').on('blur', function() { // Thay '#ten' bằng ID của trường bạn muốn kiểm tra
+        var fieldValue = $(this).val();
+
+        $.ajax({
+            url: '{{ route('check.mang') }}',
+            method: 'POST',
+            data: {
+                field: fieldValue,
+                _token: '{{ csrf_token() }}' // Đảm bảo có CSRF token
+            },
+            success: function(response) {
+                if (response.exists) {
+                    $('#error-message').text('Tài khoản đã tồn tại!').show();
+                } else {
+                    $('#error-message').text('').hide();
+                }
+            },
+            error: function(xhr) {
+                console.error(xhr);
+            }
+        });
+    });
+});
+</script>
 @endsection

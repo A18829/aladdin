@@ -37,17 +37,20 @@ class mangcontroller extends Controller
             'diachi' => 'required|string|max:255',
             
         ]);
+        try {
+            $mang = mang::findOrFail($id);
+            $mang->nhahang = $request->input('nhahang');
+            $mang->nhamang = $request->input('nhamang');
+            $mang->men = $request->input('men');
+            $mang->account = $request->input('account');
+            $mang->pass = $request->input('pass');
+            $mang->diachi = $request->input('diachi');
+            $mang->save();
 
-        $mang = mang::findOrFail($id);
-        $mang->nhahang = $request->input('nhahang');
-        $mang->nhamang = $request->input('nhamang');
-        $mang->men = $request->input('men');
-        $mang->account = $request->input('account');
-        $mang->pass = $request->input('pass');
-        $mang->diachi = $request->input('diachi');
-        $mang->save();
-
-        return redirect()->route('dsmang')->with('success', 'Cập nhật mạng thành công.');
+            return redirect()->route('dsmang')->with('success', 'Cập nhật mạng thành công.');
+        } catch (\Exception $e) {
+            return back()->withErrors(['error' => 'Cập nhật thất bại: ' . $e->getMessage()]);
+        }       
     }
 
     
@@ -69,22 +72,25 @@ class mangcontroller extends Controller
             'diachi' => 'required|string|max:255',
         ]);
     
+        try {
+            // Tự sinh ID
+            $maxId = mang::max('id');
+            $newId = $maxId ? $maxId + 1 : 1;
 
-        // Tự sinh ID
-        $maxId = mang::max('id');
-        $newId = $maxId ? $maxId + 1 : 1;
+            mang::create([
+                'id' => $newId,
+                'nhahang' => $request->nhahang,
+                'nhamang' => $request->nhamang,
+                'men' => $request->men,
+                'account' => $request->account,
+                'pass' => $request->pass,
+                'diachi' => $request->diachi,
+            ]);
 
-        mang::create([
-            'id' => $newId,
-            'nhahang' => $request->nhahang,
-            'nhamang' => $request->nhamang,
-            'men' => $request->men,
-            'account' => $request->account,
-            'pass' => $request->pass,
-            'diachi' => $request->diachi,
-        ]);
-
-        return redirect()->route('dsmang')->with('success', 'Mạng đã được thêm mới!');
+            return redirect()->route('dsmang')->with('success', 'Đường truyền đã được thêm mới!');
+        } catch (\Exception $e) {
+            return back()->withErrors(['error' => 'Không thể thêm đường truyền: ' . $e->getMessage()]);
+        }
     }
 
     public function destroy($id)
@@ -101,5 +107,16 @@ class mangcontroller extends Controller
     {
         $mangs = mang::all(); // Lấy tất cả dữ liệu từ bảng Mang
         return Excel::download(new ExcelExport($mangs, 'mang'), 'mangs.xlsx');
+    }
+
+     public function checkmang(Request $request)
+    {
+        $request->validate([
+            'field' => 'required|string|max:255',
+        ]);
+
+        $exists = mang::where('account', $request->field)->exists();
+
+        return response()->json(['exists' => $exists]);
     }
 }
