@@ -88,28 +88,32 @@ class NhaHangController extends Controller
             'ipmc' => 'required|string|max:255',
             'status' => 'required|string|max:255',
         ]);
-    
 
-        // Tự sinh ID
-        $maxId = NhaHang::max('id');
-        $newId = $maxId ? $maxId + 1 : 1;
+        try {
+            // Tự sinh ID
+            $maxId = NhaHang::max('id');
+            $newId = $maxId ? $maxId + 1 : 1;
 
-        NhaHang::create([
-            'id' => $newId,
-            'vung' => $request->vung,
-            'nhathau' => $request->nhathau,
-            'ruijie' => $request->ruijie,
-            'daucam' => $request->daucam,
-            'matcam' => $request->matcam,
-            'ten' => $request->ten,
-            'diachi' => $request->diachi,
-            'sdt' => $request->sdt,
-            'iptinh' => $request->iptinh,
-            'ipmc' => $request->ipmc,
-            'status' => $request->status,
-        ]);
+            NhaHang::create([
+                'id' => $newId,
+                'vung' => $request->vung,
+                'nhathau' => $request->nhathau,
+                'ruijie' => $request->ruijie,
+                'daucam' => $request->daucam,
+                'matcam' => $request->matcam,
+                'ten' => $request->ten,
+                'diachi' => $request->diachi,
+                'sdt' => $request->sdt,
+                'iptinh' => $request->iptinh,
+                'ipmc' => $request->ipmc,
+                'status' => $request->status,
+            ]);
 
-        return redirect()->route('dsnhahang')->with('success', 'Nhà hàng đã được thêm mới!');
+            return redirect()->route('dsnhahang')->with('success', 'Nhà hàng đã được thêm mới!');
+
+        } catch (\Exception $e) {
+            return back()->withErrors(['error' => 'Không thể thêm nhà hàng: ' . $e->getMessage()]);
+        }
     }
 
     public function destroy($id)

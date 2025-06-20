@@ -155,8 +155,6 @@ Danh sách mạng
             // Cập nhật màu nền theo trạng thái (nhưng KHÔNG khi đang ping)
             if (status === 'Online') {
                 cell.style.backgroundColor = 'white';
-            } else if (failureCount[cellId] = 1) {
-                cell.style.backgroundColor = 'lightgreen';
             } else if (failureCount[cellId] >= 2) {
                 cell.style.backgroundColor = 'yellow';
             }
@@ -193,7 +191,7 @@ Danh sách mạng
                 if (list.length === 0) break;
                 await pingHost(list[i], i, prefix);
                 i = (i + 1) % list.length;
-                await new Promise(resolve => setTimeout(resolve, 200)); // để dễ thấy màu hơn
+                await new Promise(resolve => setTimeout(resolve, 100)); // để dễ thấy màu hơn
             }
         }
 

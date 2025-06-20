@@ -330,9 +330,9 @@
           <div class="main-header-logo">
             <!-- Logo Header -->
             <div class="logo-header" data-background-color="dark">
-              <a href="../index.html" class="logo">
+              <a href="#" class="logo">
                 <img
-                  src="{{ asset('gd1/assets/img/kaiadmin/logo_light.svg') }}"
+                  src="{{ asset('gd1/assets/img/kaiadmin/a.png') }}"
                   alt="navbar brand"
                   class="navbar-brand"
                   height="20"
@@ -990,101 +990,61 @@
     <script src="{{ asset('gd1/assets/js/kaiadmin.min.js') }}"></script>
     <!-- Kaiadmin DEMO methods, don't include it in your project! -->
     <script src="{{ asset('gd1/assets/js/setting-demo2.js') }}"></script>
+    <script src="{{ asset('gd1/assets/js/bang.js') }}"></script>
+    <script src="{{ asset('gd1/assets/js/plugin/bootstrap-notify/bootstrap-notify.min.js') }}"></script>
 
+    <!-- Thông báo cập nhật thành công, thất bại -->
+    @if (session('success'))
+        <script>
+            $(document).ready(function () {
+                var placementFrom = 'top';
+                var placementAlign = 'right';
+                var state = 'success';
 
+                var content = {
+                    message: "{{ session('success') }}",
+                    title: "Thông báo",           
+                    icon: "fa fa-bell"
+                };
 
+                $.notify(content, {
+                    type: state,
+                    placement: {
+                        from: placementFrom,
+                        align: placementAlign,
+                    },
+                    delay: 5000, // Thời gian hiển thị là 5 giây
+                    timer: 1000, // Khoảng thời gian giữa các lần hiển thị
+                });
+            });
+        </script>
+    @endif
 
+    @if ($errors->any())
+        <script>
+            $(document).ready(function () {
+                var placementFrom = 'top';
+                var placementAlign = 'right';
+                var state = 'danger';
 
+                var content = {
+                    message: "{!! implode('', $errors->all('<li>:message</li>')) !!}",
+                    title: "Có lỗi xảy ra",           
+                    icon: "fa fa-exclamation-triangle"
+                };
 
-    <script>
-      $(document).ready(function () {
-        $("#basic-datatables").DataTable({});
-
-        $("#multi-filter-select").DataTable({
-          pageLength: 50,
-          initComplete: function () {
-            this.api()
-              .columns()
-              .every(function () {
-                var column = this;
-                var select = $(
-                  '<select class="form-select"><option value=""></option></select>'
-                )
-                  .appendTo($(column.footer()).empty())
-                  .on("change", function () {
-                    var val = $.fn.dataTable.util.escapeRegex($(this).val());
-
-                    column
-                      .search(val ? "^" + val + "$" : "", true, false)
-                      .draw();
-                  });
-
-                column
-                  .data()
-                  .unique()
-                  .sort()
-                  .each(function (d, j) {
-                    select.append(
-                      '<option value="' + d + '">' + d + "</option>"
-                    );
-                  });
-              });
-          },
-        });
-
-        $("#multi-filter-select1").DataTable({
-          pageLength: 500,
-          initComplete: function () {
-            this.api()
-              .columns()
-              .every(function () {
-                var column = this;
-                var select = $(
-                  '<select class="form-select"><option value=""></option></select>'
-                )
-                  .appendTo($(column.footer()).empty())
-                  .on("change", function () {
-                    var val = $.fn.dataTable.util.escapeRegex($(this).val());
-
-                    column
-                      .search(val ? "^" + val + "$" : "", true, false)
-                      .draw();
-                  });
-
-                column
-                  .data()
-                  .unique()
-                  .sort()
-                  .each(function (d, j) {
-                    select.append(
-                      '<option value="' + d + '">' + d + "</option>"
-                    );
-                  });
-              });
-          },
-        });
-
-        // Add Row
-        $("#add-row").DataTable({
-          pageLength: 1000,
-        });
-
-        var action =
-          '<td> <div class="form-button-action"> <button type="button" data-bs-toggle="tooltip" title="" class="btn btn-link btn-primary btn-lg" data-original-title="Edit Task"> <i class="fa fa-edit"></i> </button> <button type="button" data-bs-toggle="tooltip" title="" class="btn btn-link btn-danger" data-original-title="Remove"> <i class="fa fa-times"></i> </button> </div> </td>';
-
-        $("#addRowButton").click(function () {
-          $("#add-row")
-            .dataTable()
-            .fnAddData([
-              $("#addName").val(),
-              $("#addPosition").val(),
-              $("#addOffice").val(),
-              action,
-            ]);
-          $("#addRowModal").modal("hide");
-        });
-      });
-    </script>
+                $.notify(content, {
+                    type: state,
+                    placement: {
+                        from: placementFrom,
+                        align: placementAlign,
+                    },
+                    delay: 10000, // Thời gian hiển thị là 10 giây
+                    timer: 1000,
+                });
+            });
+        </script>
+    @endif
      
   </body>
 </html>
