@@ -47,6 +47,7 @@ class ExcelExport implements FromCollection, WithHeadings
                     'nhahang' => $item->nhahang,
                     'domain' => $item->domain,
                     'port' => $item->port,
+                    'httpport' => $item->httpport,
                     'user' => $item->user,
                     'pass' => $item->pass,
                     'passcam' => $item->passcam,
@@ -86,9 +87,10 @@ class ExcelExport implements FromCollection, WithHeadings
                 'ID',
                 'Nhà hàng',
                 'Tên miền',
-                'Port',
+                'SVR Port',
+                'Http Port',
                 'User',
-                'Pass',
+                'Pass đầu ghi',
                 'Pass cam',
             ];
         }

@@ -32,6 +32,7 @@ class cameraController extends Controller
             'nhahang' => 'required|string|max:255',
             'domain' => 'required|string|max:255',
             'port' => 'required|string|max:255',
+            'httpport' => 'required|string|max:255',
             'user' => 'required|string|max:255',
             'pass' => 'required|string|max:255',
             'passcam' => 'required|string|max:255',
@@ -41,6 +42,7 @@ class cameraController extends Controller
             $camera->nhahang = $request->input('nhahang');
             $camera->domain = $request->input('domain');
             $camera->port = $request->input('port');
+            $camera->httpport = $request->input('httpport');
             $camera->user = $request->input('user');
             $camera->pass = $request->input('pass');
             $camera->passcam = $request->input('passcam');
@@ -64,6 +66,7 @@ class cameraController extends Controller
             'nhahang' => 'required|string|max:255',
             'domain' => 'required|string|max:255',
             'port' => 'required|string|max:255',
+            'httpport' => 'required|string|max:255',
             'user' => 'required|string|max:255',
             'pass' => 'required|string|max:255',
             'passcam' => 'required|string|max:255',
@@ -79,6 +82,7 @@ class cameraController extends Controller
                 'nhahang' => $request->nhahang,
                 'domain' => $request->domain,
                 'port' => $request->port,
+                'httpport' => $request->httpport,
                 'user' => $request->user,
                 'pass' => $request->pass,
                 'passcam' => $request->passcam,

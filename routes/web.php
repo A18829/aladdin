@@ -1,5 +1,6 @@
 <?php
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\PermissionController;
 use App\Http\Controllers\nhahang\NhaHangController;
 use App\Http\Controllers\mang\mangcontroller;
 use App\Http\Controllers\hping\myPingController;
@@ -13,9 +14,12 @@ Route::get('', [LoginController::class, 'showLoginForm'])->name('login');
 Route::get('login', [LoginController::class, 'showLoginForm'])->name('login');
 Route::post('login', [LoginController::class, 'login']);
 Route::post('logout', [LoginController::class, 'logout'])->name('logout');   
+ 
+use App\Http\Controllers\UserPermissionController;
+
 
 // Cho các chức năng muốn sử dụng thì phải qua đăng nhập
-Route::middleware(['auth'])->group(function () {
+Route::middleware(['auth','role'])->group(function () {
 
     Route::get('/nhahang', [NhaHangController::class, 'index'])->name('dsnhahang');
     Route::get('/nhahang/{id}/edit', [NhaHangController::class, 'edit'])->name('nhahang.edit');
@@ -34,7 +38,7 @@ Route::middleware(['auth'])->group(function () {
     Route::post('/checkmang', [mangcontroller::class, 'checkmang'])->name('check.mang'); //check tên khi create
 
     Route::get('/ping', [myPingController::class, 'index'])->name('ping');
-    Route::get('/ping-status/{ip}', [myPingController::class, 'pingStatus']);
+    Route::get('/ping-status/{ip}', [myPingController::class, 'pingStatus'])->name('pingStatus');;
     Route::get('/pingcreate', [myPingController::class, 'create'])->name('pingcreate');
     Route::post('/ping/store', [myPingController::class, 'store'])->name('ping.store');
     Route::get('/ping/{id}/edit', [myPingController::class, 'edit'])->name('ping.edit');
@@ -63,5 +67,8 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/nhahangs/export', [NhahangController::class, 'export'])->name('nhahangs.export'); // Route xuất dữ liệu từ bảng Nhahang
     Route::get('/cameras/export', [cameraController::class, 'export'])->name('cameras.export'); // Route xuất dữ liệu từ bảng camera
     Route::get('/logs/export', [LogController::class, 'exportLogs'])->name('logs.export'); // Route export excel từ log
+   
+    Route::get('/user-permissions', [UserPermissionController::class, 'index'])->name('user.permissions.index');
+    Route::post('/user-permissions/{userId}', [UserPermissionController::class, 'update'])->name('user.permissions.update');
 });
 

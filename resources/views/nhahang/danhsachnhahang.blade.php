@@ -12,7 +12,6 @@ Danh sách nhà hàng
             <h4 class="card-title">Danh sách nhà hàng</h4>
         </div>
         <div class="card-body">
-          
             <div class="table-responsive">
                 <a href="{{ route('nhahangs.export') }}" class="badge badge-black mb-3"><i class="fa icon-cloud-download"></i> Xuất Excel</a>
                 <table id="multi-filter-select" class="table table-bordered table-head-bg-info table-bordered-bd-info mt-4">
@@ -28,7 +27,7 @@ Danh sách nhà hàng
                             <th>Địa chỉ</th>                          
                             <th>Ip tĩnh</th>
                             <th>Ip máy chủ</th>
-                            <th >Trạng thái {{ $nhahangs->where('status', 1)->count() }}/{{ $nhahangs->where('status', 2)->count() }}/{{ $nhahangs->count('status') }}</th>
+                            <th >Trạng thái {{ $nhahangs->where('status', 1)->count() }}+{{ $nhahangs->where('status', 2)->count() }}+{{ $nhahangs->where('status', 0)->count() }}</th>
                             <th>
                                 <button class="btn btn-warning btn-sm" onclick="window.location.href='{{ route('nhahangcreate') }}'">
                                     <span class="btn-label"><i class="fa fa-plus"></i></span>

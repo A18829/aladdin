@@ -132,7 +132,7 @@ class myPingController extends Controller
                 'iptinh' => $request->iptinh,
             ]);
 
-            return redirect()->route('ping')->with('success', 'Mạng đã được thêm mới!');
+            return redirect()->route('ping')->with('success', 'IP đã được thêm mới!');
         } catch (\Exception $e) {
             return back()->withErrors(['error' => 'Cập nhật thất bại: ' . $e->getMessage()]);
         }       
@@ -167,9 +167,9 @@ class myPingController extends Controller
         $mang = ping::find($id);
         if ($mang) {
             $mang->delete();
-            return redirect()->route('ping')->with('success', 'Mạng đã được xóa!');
+            return redirect()->route('ping')->with('success', 'IP đã được xóa!');
         }
-        return redirect()->route('ping')->with('error', 'Mạng không tồn tại!');
+        return redirect()->route('ping')->with('error', 'IP không tồn tại!');
     }
 
 
@@ -178,8 +178,8 @@ class myPingController extends Controller
         $mien = tenmien::find($id);
         if ($mien) {
             $mien->delete();
-            return redirect()->route('ping')->with('success', 'Mạng đã được xóa!');
+            return redirect()->route('ping')->with('success', 'Domain đã được xóa!');
         }
-        return redirect()->route('ping')->with('error', 'Mạng không tồn tại!');
+        return redirect()->route('ping')->with('error', 'Domain không tồn tại!');
     }
 }

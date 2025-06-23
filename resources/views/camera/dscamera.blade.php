@@ -21,10 +21,12 @@ Danh sách nhà hàng
                             <th>ID</th>
                             <th>Nhà hàng</th>
                             <th>Tên miền</th>
-                            <th>Port</th>
+                            <th>SVR Port</th>
+                            <th>Http Port</th>
                             <th>User</th>
-                            <th>Pass</th>
-                            <th>Passcam</th>
+                            <th>Pass đầu ghi</th>
+                            <th>Pass mắt cam</th>
+                            <th>Xem cam</th>
                             <th>
                                 <button class="btn btn-warning btn-sm" onclick="window.location.href='{{ route('cameracreate') }}'">
                                     <span class="btn-label"><i class="fa fa-plus"></i></span>
@@ -38,10 +40,12 @@ Danh sách nhà hàng
                             <th>ID</th>
                             <th>Nhà hàng</th>
                             <th>Tên miền</th>
-                            <th>Port</th>
+                            <th>SVR Port</th>
+                            <th>Http Port</th>
                             <th>User</th>
-                            <th>Pass</th>
-                            <th>Passcam</th>
+                            <th>Pass đầu ghi</th>
+                            <th>Pass mắt cam</th>
+                            <th>Xem cam</th>
                             <th></th>
                         </tr>
                     </tfoot>
@@ -52,9 +56,16 @@ Danh sách nhà hàng
                             <td>{{ $camera->nhahang }}</td>
                             <td>{{ $camera->domain }}</td>
                             <td>{{ $camera->port }}</td>
+                            <td>{{ $camera->httpport }}</td>
                             <td>{{ $camera->user }}</td>
                             <td>{{ $camera->pass }}</td>
                             <td>{{ $camera->passcam }}</td>
+                            <td>
+                                <button class="btn btn-secondary btn-sm" onclick="window.open('http://{{ $camera->domain }}:{{ $camera->httpport }}', '_blank')">
+                                    <span class="btn-label"><i class="fas fa-eye"></i></span>
+                                    web
+                                </button>
+                            </td>
                             <td>
                                 <div class="form-button-action" style="display: flex; align-items: center;">
                                     <button type="button" class="btn btn-link btn-primary me-2" onclick="window.location='{{ route('camera.edit', $camera->id) }}'" data-original-title="Edit Task">

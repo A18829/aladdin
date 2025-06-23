@@ -24,9 +24,13 @@ Thêm Mới Nhà Hàng
                         <input type="text" class="form-control" id="domain" name="domain" required>
                     </div>
                     <div class="form-group">
-                        <label for="port" class="form-label">Port</label>
+                        <label for="port" class="form-label">SVR Port</label>
                         <input type="number" class="form-control" id="port" name="port" required>
-                    </div>                    
+                    </div>
+                    <div class="form-group">
+                        <label for="httpport" class="form-label">Http Port</label>
+                        <input type="number" class="form-control" id="httpport" name="httpport" required>
+                    </div>                       
                 </div>
                 <div class="col-md-6 col-lg-4">
                     

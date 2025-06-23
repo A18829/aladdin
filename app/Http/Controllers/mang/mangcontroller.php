@@ -47,7 +47,7 @@ class mangcontroller extends Controller
             $mang->diachi = $request->input('diachi');
             $mang->save();
 
-            return redirect()->route('dsmang')->with('success', 'Cập nhật mạng thành công.');
+            return redirect()->route('dsmang')->with('success', 'Cập nhật thành công.');
         } catch (\Exception $e) {
             return back()->withErrors(['error' => 'Cập nhật thất bại: ' . $e->getMessage()]);
         }       
@@ -98,9 +98,9 @@ class mangcontroller extends Controller
         $mang = mang::find($id);
         if ($mang) {
             $mang->delete();
-            return redirect()->route('dsmang')->with('success', 'Mạng đã được xóa!');
+            return redirect()->route('dsmang')->with('success', 'Đường truyền đã được xóa!');
         }
-        return redirect()->route('dsmang')->with('error', 'Mạng không tồn tại!');
+        return redirect()->route('dsmang')->with('error', 'Đường truyền không tồn tại!');
     }
 
     public function export()

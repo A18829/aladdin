@@ -212,6 +212,27 @@
                   </ul>
                 </div>
               </li>
+               <li class="nav-item">
+                <a data-bs-toggle="collapse" href="#submenu">
+                  <i class="icon-settings"></i>
+                  <p>Cài đặt</p>
+                  <span class="caret"></span>
+                </a>
+                <div class="collapse" id="submenu">
+                  <ul class="nav nav-collapse">
+                    <li>
+                      <a href="{{ route('user.permissions.index') }}">
+                        <span class="sub-item">Phân quyền</span>
+                      </a>
+                    </li>
+                    <!--<li>
+                      <a href="#">
+                        <span class="sub-item"></span>
+                      </a>
+                    </li>-->
+                  </ul>
+                </div>
+              </li> 
               <li class="nav-item">
                 <a data-bs-toggle="collapse" href="#maps">
                   <i class="fas fa-map-marker-alt"></i>
