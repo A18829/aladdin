@@ -32,14 +32,14 @@ class ExcelExport implements FromCollection, WithHeadings
                     'id' => $item->id,
                     'vung' => $item->vung,
                     'nhathau' => $item->nhathau,
-                    'ruijie' => $item->ruijie,
+                    'ruijie' => $item->ruijie == 1 ? 'Có' : 'Không',
                     'daucam' => $item->daucam,
                     'matcam' => $item->matcam,
                     'ten' => $item->ten,
                     'diachi' => $item->diachi,
                     'iptinh' => $item->iptinh,
                     'ipmc' => $item->ipmc,
-                    'status' => $item->status,
+                    'status' => $item->status == 1 ? 'Hoạt động' : ($item->status == 2 ? 'Sắp hoạt động' : 'Không hoạt động'),
                 ];
             } elseif ($this->type === 'camera') {
                 return [

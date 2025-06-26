@@ -17,14 +17,18 @@ class UserPermissionController extends Controller
 
     public function update(Request $request, $userId)
     {
+        try {
         // Xóa tất cả quyền cũ
         UserPermission::where('user_id', $userId)->delete();
 
         // Thêm quyền mới
         if ($request->has('permissions')) {
             foreach ($request->permissions as $routeName) {
-                $maxId = UserPermission::max('id');
-                    $newId = $maxId ? $maxId + 1 : 1;
+                $existingIds = UserPermission::pluck('id')->toArray();
+                $newId = 1; // Bắt đầu từ 1
+                while (in_array($newId, $existingIds)) {
+                    $newId++; // Tăng ID nếu đã tồn tại
+                }
                 UserPermission::create([
                     'id' => $newId,
                     'user_id' => $userId,
@@ -33,6 +37,9 @@ class UserPermissionController extends Controller
             }
         }
 
-        return redirect()->route('user.permissions.index')->with('success', 'Permissions updated successfully.');
+        return redirect()->route('user.permissions.index')->with('success', 'Cập nhật thành công');
+        } catch (\Exception $e) {
+            return back()->withErrors(['error' => 'Không thể thêm nhà hàng: ' . $e->getMessage()]);
+        }
     }
 }

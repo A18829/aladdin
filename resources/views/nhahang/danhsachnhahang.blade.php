@@ -14,6 +14,7 @@ Danh sách nhà hàng
         <div class="card-body">
             <div class="table-responsive">
                 <a href="{{ route('nhahangs.export') }}" class="badge badge-black mb-3"><i class="fa icon-cloud-download"></i> Xuất Excel</a>
+                <a href="{{ route('nhahangs.pdf') }}" class="badge badge-warning mb-3"><i class="fa icon-cloud-download"></i> Xuất PDF</a>
                 <table id="multi-filter-select" class="table table-bordered table-head-bg-info table-bordered-bd-info mt-4">
                     <thead>
                         <tr>
@@ -29,9 +30,13 @@ Danh sách nhà hàng
                             <th>Ip máy chủ</th>
                             <th >Trạng thái {{ $nhahangs->where('status', 1)->count() }}+{{ $nhahangs->where('status', 2)->count() }}+{{ $nhahangs->where('status', 0)->count() }}</th>
                             <th>
-                                <button class="btn btn-warning btn-sm" onclick="window.location.href='{{ route('nhahangcreate') }}'">
+                                <!--<button class="btn btn-warning btn-sm" onclick="window.location.href='{{ route('nhahangcreate') }}'">
                                     <span class="btn-label"><i class="fa fa-plus"></i></span>
-                                     Thêm mới
+                                    Thêm mới
+                                </button>-->
+                                <button class="btn btn-warning btn-sm" data-bs-toggle="modal" data-bs-target="#createModal">
+                                    <span class="btn-label"><i class="fa fa-plus"></i></span>
+                                    Thêm mới
                                 </button>
                             </th>
                         </tr>
@@ -71,13 +76,13 @@ Danh sách nhà hàng
                             <td>{{ $nhahang->diachi }}</td>                  
                             <td>{{ $nhahang->iptinh }}</td>
                             <td>{{ $nhahang->ipmc }}</td>
-                            <td>
+                            <td class="@if ($nhahang->status == 1) bg-success @elseif ($nhahang->status == 2) bg-warning @else bg-danger @endif">
                                 @if ($nhahang->status == 1)
-                                    <span class="badge badge-success">Hoạt động</span>
+                                    Hoạt động
                                 @elseif ($nhahang->status == 2)
-                                    <span class="badge badge-warning">Sắp hoạt động</span>
+                                    Sắp hoạt động
                                 @else
-                                    <span class="badge badge-danger">Không hoạt động </span>
+                                    Không hoạt động 
                                 @endif
                             </td>
                             <td>
@@ -108,9 +113,97 @@ Danh sách nhà hàng
     $(document).ready(function() {
         $('.table').DataTable();
     });
-
 </script>
 
+<!-- Modal -->
+<div class="modal fade" id="createModal" tabindex="-1" aria-labelledby="createModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <form action="{{ route('nhahang.store') }}" method="POST">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="createModalLabel">Thêm mới nhà hàng</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    @csrf
+                    <div class="row">
+                        <div class="col-md-6">
+                            <label>Thương hiệu</label>
+                            <select class="form-select" name="vung">
+                                @foreach($thuonghieu as $thuonghieus)
+                                    <option value="{{ $thuonghieus->thuonghieu }}">{{ $thuonghieus->thuonghieu }}</option>
+                                @endforeach
+                            </select>
+                            <label>Nhà thầu</label>
+                            <select class="form-select" name="nhathau">
+                                @foreach($nhathaus as $nhathauss)
+                                  <option value="{{ $nhathauss->nhathau }}">{{ $nhathauss->nhathau }}</option>
+                                @endforeach
+                            </select>
+                            <label>Ruijie</label>
+                            <select class="form-select" name="ruijie">
+                                <option value="1">Có</option>
+                                <option value="0">Không</option>
+                            </select>
+                            <label>Đầu cam</label>
+                            <input type="number" class="form-control" name="daucam" required>
+                            <label>Mắt cam</label>
+                            <input type="number" class="form-control" name="matcam" required>
+                        </div>
+                        <div class="col-md-6">
+                            <label>Tên</label>
+                            <input type="text" class="form-control" id="ten" name="ten" value="{{ old('ten') }}" required>
+                            <div id="error-message" style="color: red; display: none;"></div>
+                            <label>Địa chỉ</label>
+                            <input type="text" class="form-control" name="diachi" required>
+                            <label>Trạng thái</label>
+                            <select class="form-select" name="status">
+                                <option value="1">Hoạt động</option>
+                                <option value="2">Sắp hoạt động</option>
+                                <option value="0">Không hoạt động</option>
+                            </select>
+                            <label>SĐT</label>
+                            <input type="text" class="form-control" name="sdt" required>
+                            <label>IP tĩnh</label>
+                            <input type="text" class="form-control" name="iptinh" required>
+                            <label>IP máy chủ</label>
+                            <input type="text" class="form-control" name="ipmc" required>
+                        </div>
+                    </div> 
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Hủy</button>
+                    <button type="submit" class="btn btn-primary">Lưu</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
 
+<script>
+    $(document).ready(function() {
+        $('#ten').on('blur', function() { // Thay '#ten' bằng ID của trường bạn muốn kiểm tra
+            var fieldValue = $(this).val();
 
+            $.ajax({
+                url: '{{ route('check.nhahang') }}',
+                method: 'POST',
+                data: {
+                    field: fieldValue,
+                    _token: '{{ csrf_token() }}' // Đảm bảo có CSRF token
+                },
+                success: function(response) {
+                    if (response.exists) {
+                        $('#error-message').text('Nhà hàng đã tồn tại!').show();
+                    } else {
+                        $('#error-message').text('').hide();
+                    }
+                },
+                error: function(xhr) {
+                    console.error(xhr);
+                }
+            });
+        });
+    });
+</script>
 @endsection

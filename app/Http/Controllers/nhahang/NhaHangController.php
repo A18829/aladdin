@@ -16,9 +16,10 @@ class NhaHangController extends Controller
     {
         // Lấy dữ liệu từ bảng nhahang
         $nhahangs = NhaHang::all();
-       
+        $nhathaus = NhaThau::all();
+        $thuonghieu = ThuongHieu::all();
         // Trả về view với dữ liệu
-        return view('nhahang.danhsachnhahang', compact('nhahangs'));
+        return view('nhahang.danhsachnhahang', compact('nhahangs','nhathaus','thuonghieu'));
     }
 
      public function edit($id)
@@ -117,7 +118,9 @@ class NhaHangController extends Controller
         } catch (\Exception $e) {
             return back()->withErrors(['error' => 'Không thể thêm nhà hàng: ' . $e->getMessage()]);
         }
-    }
+    } 
+
+
 
     public function destroy($id)
     {

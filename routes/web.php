@@ -1,6 +1,5 @@
 <?php
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\PermissionController;
 use App\Http\Controllers\nhahang\NhaHangController;
 use App\Http\Controllers\mang\mangcontroller;
 use App\Http\Controllers\hping\myPingController;
@@ -9,13 +8,14 @@ use App\Http\Controllers\camera\cameraController;
 use App\Http\Controllers\logdangnhap\LogController;
 use App\Http\Controllers\dashboard\dashboardController;
 use App\Http\Controllers\Auth\LoginController;
+use App\Http\Controllers\UserPermissionController;
+use App\Http\Controllers\ExportController;
+
 
 Route::get('', [LoginController::class, 'showLoginForm'])->name('login');
 Route::get('login', [LoginController::class, 'showLoginForm'])->name('login');
 Route::post('login', [LoginController::class, 'login']);
 Route::post('logout', [LoginController::class, 'logout'])->name('logout');   
- 
-use App\Http\Controllers\UserPermissionController;
 
 
 // Cho các chức năng muốn sử dụng thì phải qua đăng nhập
@@ -68,7 +68,11 @@ Route::middleware(['auth','role'])->group(function () {
     Route::get('/cameras/export', [cameraController::class, 'export'])->name('cameras.export'); // Route xuất dữ liệu từ bảng camera
     Route::get('/logs/export', [LogController::class, 'exportLogs'])->name('logs.export'); // Route export excel từ log
    
-    Route::get('/user-permissions', [UserPermissionController::class, 'index'])->name('user.permissions.index');
-    Route::post('/user-permissions/{userId}', [UserPermissionController::class, 'update'])->name('user.permissions.update');
+    Route::get('/user-permissions', [UserPermissionController::class, 'index'])->name('user.permissions.index'); //Route cho xem phân quyền
+    Route::post('/user-permissions/{userId}', [UserPermissionController::class, 'update'])->name('user.permissions.update'); // Route cho update phân quyền
+
+    Route::get('/export/nhahangpdf', [ExportController::class, 'nhahangPDF'])->name('nhahangs.pdf'); //Route xuất pdf bảng nhahang
+    Route::get('/export/mangpdf', [ExportController::class, 'mangPDF'])->name('mangs.pdf'); //Route xuất pdf bảng mang
+    Route::get('/export/camerapdf', [ExportController::class, 'cameraPDF'])->name('cameras.pdf'); //Route xuất pdf bảng mang
 });
 

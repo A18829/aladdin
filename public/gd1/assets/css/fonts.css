@@ -6477,3 +6477,14 @@ readers do not read off random characters that represent icons */
 .icon-social-steam:before {
   content: "\e620";
 }
+.bg-success {
+    background-color: #d4edda; /* Màu xanh nhạt */
+}
+
+.bg-warning {
+    background-color: #fff3cd; /* Màu vàng nhạt */
+}
+
+.bg-danger {
+    background-color: #f8d7da; /* Màu đỏ nhạt */
+}
