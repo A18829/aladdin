@@ -39,7 +39,7 @@ class UserPermissionController extends Controller
 
         return redirect()->route('user.permissions.index')->with('success', 'Cập nhật thành công');
         } catch (\Exception $e) {
-            return back()->withErrors(['error' => 'Không thể thêm nhà hàng: ' . $e->getMessage()]);
+            return back()->withErrors(['error' => 'Cập nhật thất bại ' . $e->getMessage()]);
         }
     }
 }

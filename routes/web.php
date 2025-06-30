@@ -66,6 +66,8 @@ Route::middleware(['auth','role'])->group(function () {
     Route::get('/mangs/export', [mangcontroller::class, 'export'])->name('mangs.export'); // Route xuất dữ liệu từ bảng Mang
     Route::get('/nhahangs/export', [NhahangController::class, 'export'])->name('nhahangs.export'); // Route xuất dữ liệu từ bảng Nhahang
     Route::get('/cameras/export', [cameraController::class, 'export'])->name('cameras.export'); // Route xuất dữ liệu từ bảng camera
+    Route::get('/ping/export', [myPingController::class, 'exportip'])->name('ip.export'); // Route xuất dữ liệu từ bảng ping
+    Route::get('/tm/export', [myPingController::class, 'exporttm'])->name('tm.export'); // Route xuất dữ liệu từ bảng tenmien
     Route::get('/logs/export', [LogController::class, 'exportLogs'])->name('logs.export'); // Route export excel từ log
    
     Route::get('/user-permissions', [UserPermissionController::class, 'index'])->name('user.permissions.index'); //Route cho xem phân quyền

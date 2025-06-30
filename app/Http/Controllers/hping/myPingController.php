@@ -4,6 +4,9 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\ping; // Thêm dòng này để sử dụng model Ping
 use App\Models\tenmien;
+use App\Exports\ExcelExport;
+use Maatwebsite\Excel\Facades\Excel;
+
 
 class myPingController extends Controller
 {
@@ -181,5 +184,18 @@ class myPingController extends Controller
             return redirect()->route('ping')->with('success', 'Domain đã được xóa!');
         }
         return redirect()->route('ping')->with('error', 'Domain không tồn tại!');
+    }
+
+
+    public function exportip()
+    {
+        $iptinhs = ping::all(); // Lấy tất cả dữ liệu từ bảng Nhahang
+        return Excel::download(new ExcelExport($iptinhs, 'iptinh'), 'iptinh.xlsx'); // iptinh là type trong file excelexport.php
+    }    
+
+    public function exporttm()
+    {
+        $tenmiens = tenmien::all(); // Lấy tất cả dữ liệu từ bảng Nhahang
+        return Excel::download(new ExcelExport($tenmiens, 'tenmien'), 'tenmien.xlsx'); // tenmien là type trong file excelexport.php
     }
 }

@@ -10,7 +10,7 @@
             margin: 10px;
             padding: 0;
             box-sizing: border-box;
-            font-size: 10pt;
+            font-size: 8pt;
         }
         h1 {
             text-align: center;
