@@ -2,9 +2,10 @@
 <html lang="en">
  <head>
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-    <title>Hieu admin</title>
+    <title>Hieu - @yield('title')</title>
     <meta content="width=device-width, initial-scale=1.0, shrink-to-fit=no" name="viewport" />
     <meta name="csrf-token" content="{{ csrf_token() }}">
+
 
     <link rel="icon" href="{{ asset('gd1/assets/img/flags/favicon.png') }}" type="image/x-icon" />
 

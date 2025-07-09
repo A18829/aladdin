@@ -1,7 +1,7 @@
 @extends('master')
 
 @section('title')
-Danh sách mạng
+Danh sách đường truyền internet
 @endsection
 
 @section('content')
@@ -10,7 +10,7 @@ Danh sách mạng
 <div class="col-md-12">
     <div class="card">
         <div class="card-header">
-                <h4 class="card-title">Danh sách đường truyền</h4>
+                <h4 class="card-title">Danh sách đường truyền - MST: 0107742477</h4>
         </div>
         <div class="card-body">
             <div class="table-responsive">

@@ -1,7 +1,7 @@
 @extends('master')
 
 @section('title')
-Danh sách nhà hàng
+Danh sách camera
 @endsection
 
 @section('content')

@@ -1,7 +1,7 @@
 @extends('master')
 
 @section('title')
-Danh sách mạng
+Log
 @endsection
 
 @section('content')

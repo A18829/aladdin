@@ -1,5 +1,9 @@
 @extends('master')
 
+@section('title')
+Phân quyền
+@endsection
+
 @section('content')
 
 <div class="col-md-12">

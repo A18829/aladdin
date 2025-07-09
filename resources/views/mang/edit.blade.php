@@ -1,7 +1,7 @@
 @extends('master')
 
 @section('title')
-Chỉnh Sửa Nhà Hàng
+Sửa đường truyền
 @endsection
 
 @section('content')

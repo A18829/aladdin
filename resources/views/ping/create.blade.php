@@ -1,7 +1,7 @@
 @extends('master')
 
 @section('title')
-Thêm Mới Nhà Hàng
+Thêm Mới IP
 @endsection
 
 @section('content')

@@ -121,7 +121,17 @@ class NhaHangController extends Controller
     } 
 
 
+    public function checknhahang(Request $request)
+    {
+        $request->validate([
+            'field' => 'required|string|max:255',
+        ]);
 
+        $exists = NhaHang::where('ten', $request->field)->exists();
+
+        return response()->json(['exists' => $exists]);
+    }
+    
     public function destroy($id)
     {
         $nhahang = NhaHang::find($id);
@@ -138,16 +148,7 @@ class NhaHangController extends Controller
         return Excel::download(new ExcelExport($nhahangs, 'nhahang'), 'nhahangs.xlsx');
     }
 
-    public function checknhahang(Request $request)
-    {
-        $request->validate([
-            'field' => 'required|string|max:255',
-        ]);
-
-        $exists = NhaHang::where('ten', $request->field)->exists();
-
-        return response()->json(['exists' => $exists]);
-    }
+    
 
     
 }

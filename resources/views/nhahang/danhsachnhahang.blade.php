@@ -179,7 +179,7 @@ Danh sách nhà hàng
         </div>
     </div>
 </div>
-
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script>
     $(document).ready(function() {
         $('#ten').on('blur', function() { // Thay '#ten' bằng ID của trường bạn muốn kiểm tra

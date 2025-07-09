@@ -1,7 +1,7 @@
 @extends('master')
 
 @section('title')
-Danh sách mạng
+Ping IP/Domain
 @endsection
 
 @section('content')
