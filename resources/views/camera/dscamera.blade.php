@@ -19,15 +19,17 @@ Danh sách camera
                 <table id="multi-filter-select" class="table table-bordered table-head-bg-info table-bordered-bd-info mt-4">
                     <thead>
                         <tr>
-                            <th>ID</th>
+                            
                             <th>Nhà hàng</th>
                             <th>Tên miền</th>
                             <th>SVR Port</th>
                             <th>Http Port</th>
+                            <th>Rtsp Port</th>
                             <th>User</th>
                             <th>Pass đầu ghi</th>
                             <th>Pass mắt cam</th>
-                            <th>Xem cam</th>
+                            <th>Ip tĩnh</th>
+                           
                             <th>
                                 <button class="btn btn-warning btn-sm" onclick="window.location.href='{{ route('cameracreate') }}'">
                                     <span class="btn-label"><i class="fa fa-plus"></i></span>
@@ -38,37 +40,39 @@ Danh sách camera
                     </thead>
                     <tfoot>
                         <tr>
-                            <th>ID</th>
+                         
                             <th>Nhà hàng</th>
                             <th>Tên miền</th>
                             <th>SVR Port</th>
                             <th>Http Port</th>
+                            <th>Rtsp Port</th>
                             <th>User</th>
                             <th>Pass đầu ghi</th>
                             <th>Pass mắt cam</th>
-                            <th>Xem cam</th>
+                            <th>Ip tĩnh</th>
+                          
                             <th></th>
                         </tr>
                     </tfoot>
                     <tbody>
                         @foreach($cameras as $camera)
                         <tr>
-                            <td>{{ $camera->id }}</td>
+                            
                             <td>{{ $camera->nhahang }}</td>
                             <td>{{ $camera->domain }}</td>
                             <td>{{ $camera->port }}</td>
                             <td>{{ $camera->httpport }}</td>
+                            <td>{{ $camera->rtspport }}</td>
                             <td>{{ $camera->user }}</td>
                             <td>{{ $camera->pass }}</td>
                             <td>{{ $camera->passcam }}</td>
-                            <td>
-                                <button class="btn btn-secondary btn-sm" onclick="window.open('http://{{ $camera->domain }}:{{ $camera->httpport }}', '_blank')">
-                                    <span class="btn-label"><i class="fas fa-eye"></i></span>
-                                    web
-                                </button>
-                            </td>
+                            <td>{{ $camera->iptinh }}</td>
+                           
                             <td>
                                 <div class="form-button-action" style="display: flex; align-items: center;">
+                                    <button class="btn btn-link btn-black" onclick="window.open('http://{{ $camera->domain }}:{{ $camera->httpport }}', '_blank')">
+                                        <span class="btn-label"><i class="fas fa-eye"></i></span>
+                                    </button>
                                     <button type="button" class="btn btn-link btn-primary me-2" onclick="window.location='{{ route('camera.edit', $camera->id) }}'" data-original-title="Edit Task">
                                         <i class="fa fa-edit"></i>
                                     </button>

@@ -33,9 +33,11 @@ class cameraController extends Controller
             'domain' => 'required|string|max:255',
             'port' => 'required|string|max:255',
             'httpport' => 'required|string|max:255',
+            'rtspport' => 'required|string|max:255',
             'user' => 'required|string|max:255',
             'pass' => 'required|string|max:255',
             'passcam' => 'required|string|max:255',
+            'iptinh' => 'required|string|max:255',
         ]);
         try {
             $camera = camera::findOrFail($id);
@@ -43,9 +45,11 @@ class cameraController extends Controller
             $camera->domain = $request->input('domain');
             $camera->port = $request->input('port');
             $camera->httpport = $request->input('httpport');
+            $camera->rtspport = $request->input('rtspport');
             $camera->user = $request->input('user');
             $camera->pass = $request->input('pass');
             $camera->passcam = $request->input('passcam');
+            $camera->iptinh = $request->input('iptinh');
             $camera->save();
 
             return redirect()->route('dscamera')->with('success', 'Cập nhật tài khoản thành công.');
@@ -67,9 +71,11 @@ class cameraController extends Controller
             'domain' => 'required|string|max:255',
             'port' => 'required|string|max:255',
             'httpport' => 'required|string|max:255',
+            'rtspport' => 'required|string|max:255',
             'user' => 'required|string|max:255',
             'pass' => 'required|string|max:255',
             'passcam' => 'required|string|max:255',
+            'iptinh' => 'required|string|max:255',
         ]);    
 
         try {
@@ -83,9 +89,11 @@ class cameraController extends Controller
                 'domain' => $request->domain,
                 'port' => $request->port,
                 'httpport' => $request->httpport,
+                'rtspport' => $request->rtspport,
                 'user' => $request->user,
                 'pass' => $request->pass,
                 'passcam' => $request->passcam,
+                'iptinh' => $request->iptinh,
             ]);
 
             return redirect()->route('dscamera')->with('success', 'Tài khoản đã được thêm mới!');

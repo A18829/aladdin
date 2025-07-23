@@ -13,5 +13,5 @@ class camera extends Model
     protected $table = 'passcam';
 
     // Nếu bạn có cột tự động tăng, không cần khai báo
-    protected $fillable = ['id','nhahang','domain','port','httpport', 'user','pass', 'passcam'];
+    protected $fillable = ['id','nhahang','domain','port','httpport', 'rtspport', 'user','pass', 'passcam', 'iptinh'];
 }

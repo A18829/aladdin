@@ -44,8 +44,10 @@
                 <th>ID</th>
                 <th>Nhà hàng</th>
                 <th>Domain</th>
-                <th>SVR port</th>
+                <th>Ip tĩnh</th>
+                <th>Svr port</th>
                 <th>Http port</th>
+                <th>Rtsp port</th>
                 <th>User</th>
                 <th>Pass đầu ghi</th>
                 <th>Pass cam</th>
@@ -57,8 +59,10 @@
                     <td>{{ $row['ID'] }}</td>
                     <td>{{ $row['Nhà hàng'] }}</td>
                     <td>{{ $row['Domain'] }}</td>
+                    <td>{{ $row['Ip tĩnh'] }}</td>
                     <td>{{ $row['SVR port'] }}</td>
                     <td>{{ $row['Http port'] }}</td>
+                    <td>{{ $row['Rtsp port'] }}</td>
                     <td>{{ $row['User'] }}</td>
                     <td>{{ $row['Pass'] }}</td>
                     <td>{{ $row['Passcam'] }}</td>

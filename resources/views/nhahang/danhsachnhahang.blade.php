@@ -65,9 +65,9 @@ Danh sách nhà hàng
                             <td>{{ $nhahang->nhathau }}</td>
                             <td>     
                                 @if ($nhahang->ruijie == 1)
-                                    <span class="badge badge-success">Có GW</span>
+                                    Có GW
                                 @else
-                                    <span class="badge badge-danger">Không GW</span>
+                                    Không GW
                                 @endif
                             </td>
                             <td>{{ $nhahang->daucam }}</td>
