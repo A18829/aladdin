@@ -65,6 +65,42 @@
           },
         });
 
+        $("#multi-filter-select2").DataTable({
+            pageLength: 50,
+            order: [[0, 'desc']], // Sắp xếp theo cột đầu tiên từ lớn đến bé
+            initComplete: function () {
+                this.api()
+                    .columns()
+                    .every(function () {
+                        var column = this;
+                        var select = $('<select class="form-select"><option value=""></option></select>')
+                            .appendTo($(column.footer()).empty())
+                            .on("change", function () {
+                                var val = $.fn.dataTable.util.escapeRegex($(this).val());
+
+                                column
+                                    .search(val ? "^" + val + "$" : "", true, false)
+                                    .draw();
+                            });
+
+                        // Lấy dữ liệu, sắp xếp và thêm vào select
+                        column
+                            .data()
+                            .unique()
+                            .sort((a, b) => {
+                                // Sắp xếp từ lớn đến bé
+                                return b.localeCompare(a, undefined, { numeric: true });
+                            })
+                            .each(function (d, j) {
+                                select.append('<option value="' + d + '">' + d + "</option>");
+                            });
+                    });
+            },
+        });
+
+
+
+
         // Add Row
         $("#add-row").DataTable({
           pageLength: 1000,

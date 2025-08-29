@@ -69,26 +69,26 @@
         <div class="sidebar-wrapper scrollbar scrollbar-inner">
           <div class="sidebar-content">
             <ul class="nav nav-secondary">
-              <li class="nav-item">
-                <a
-                  data-bs-toggle="collapse"
-                  href="#dashboard"
-                  class="collapsed"
-                  aria-expanded="false"
-                >
+               <li class="nav-item active submenu">
+                <a data-bs-toggle="collapse" href="#dashboard">
                   <i class="fas fa-home"></i>
-                  <p>Dashboard</p>
+                  <p>Dashboards</p>
                   <span class="caret"></span>
                 </a>
-                <div class="collapse" id="dashboard">
+                <div class="collapse show" id="tables">
                   <ul class="nav nav-collapse">
-                    <li>
+                 <!--   <li>
+                      <a href="">
+                        <span class="sub-item"></span>
+                      </a>
+                    </li> -->
+                    <li class="active">
                       <a href="{{ route('db') }}">
                         <span class="sub-item">Dashboard 1</span>
                       </a>
                     </li>
                   </ul>
-                </div> 
+                </div>
               </li>
         <!-- <li class="nav-section">
                 <span class="sidebar-mini-icon">
@@ -194,20 +194,20 @@
                   </ul>
                 </div>
               </li>
-              <li class="nav-item active submenu">
+              <li class="nav-item">
                 <a data-bs-toggle="collapse" href="#tables">
                   <i class="fas fa-th-list"></i>
                   <p>Nhà hàng</p>
                   <span class="caret"></span>
                 </a>
-                <div class="collapse show" id="tables">
+                <div class="collapse" id="tables">
                   <ul class="nav nav-collapse">
                  <!--   <li>
                       <a href="">
                         <span class="sub-item"></span>
                       </a>
                     </li> -->
-                    <li class="active">
+                    <li>
                       <a href="{{ route('dsnhahang') }}">
                         <span class="sub-item">DS Nhà hàng</span>
                       </a>
@@ -256,7 +256,14 @@
                     </li> -->
                   </ul>
                 </div>
-              </li> 
+              </li>
+              <li class="nav-item">
+                <a data-bs-toggle="" href="{{ route('zabbix.problems') }}">
+                  <i class="fas fa-map-marker-alt"></i>
+                  <p>Zabbix</p>
+                  
+                </a>
+              </li>  
               <li class="nav-item">
                 <a data-bs-toggle="collapse" href="#charts">
                   <i class="far fa-chart-bar"></i>

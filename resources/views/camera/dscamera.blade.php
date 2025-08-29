@@ -6,11 +6,10 @@ Danh sách camera
 
 @section('content')
 
-
 <div class="col-md-12">
     <div class="card">
         <div class="card-header">
-                <h4 class="card-title">Tài Khoản Camera</h4>
+            <h4 class="card-title">Tài Khoản Camera</h4>
         </div>
         <div class="card-body">
             <div class="table-responsive">
@@ -19,17 +18,17 @@ Danh sách camera
                 <table id="multi-filter-select" class="table table-bordered table-head-bg-info table-bordered-bd-info mt-4">
                     <thead>
                         <tr>
-                            
                             <th>Nhà hàng</th>
-                            <th>Tên miền</th>
-                            <th>SVR Port</th>
-                            <th>Http Port</th>
-                            <th>Rtsp Port</th>
-                            <th>User</th>
-                            <th>Pass đầu ghi</th>
-                            <th>Pass mắt cam</th>
+                            <th>Tên miền</th>                           
+                            @if(Auth::user()->level === 1 || Auth::user()->level === 2)
+                                <th>SVR Port</th>
+                                <th>Http Port</th>
+                                <th>Rtsp Port</th>
+                                <th>User</th>
+                                <th>Pass đầu ghi</th>
+                                <th>Pass mắt cam</th>
+                            @endif
                             <th>Ip tĩnh</th>
-                           
                             <th>
                                 <button class="btn btn-warning btn-sm" onclick="window.location.href='{{ route('cameracreate') }}'">
                                     <span class="btn-label"><i class="fa fa-plus"></i></span>
@@ -40,34 +39,36 @@ Danh sách camera
                     </thead>
                     <tfoot>
                         <tr>
-                         
                             <th>Nhà hàng</th>
                             <th>Tên miền</th>
-                            <th>SVR Port</th>
-                            <th>Http Port</th>
-                            <th>Rtsp Port</th>
-                            <th>User</th>
-                            <th>Pass đầu ghi</th>
-                            <th>Pass mắt cam</th>
+                           
+                            @if(Auth::user()->level === 1 || Auth::user()->level === 2)
+                                <th>SVR Port</th>
+                                <th>Http Port</th>
+                                <th>Rtsp Port</th>
+                                <th>User</th>
+                                <th>Pass đầu ghi</th>
+                                <th>Pass mắt cam</th>
+                            @endif
                             <th>Ip tĩnh</th>
-                          
                             <th></th>
                         </tr>
                     </tfoot>
                     <tbody>
                         @foreach($cameras as $camera)
                         <tr>
-                            
                             <td>{{ $camera->nhahang }}</td>
                             <td>{{ $camera->domain }}</td>
-                            <td>{{ $camera->port }}</td>
-                            <td>{{ $camera->httpport }}</td>
-                            <td>{{ $camera->rtspport }}</td>
-                            <td>{{ $camera->user }}</td>
-                            <td>{{ $camera->pass }}</td>
-                            <td>{{ $camera->passcam }}</td>
+                            
+                            @if(Auth::user()->level === 1 || Auth::user()->level === 2)
+                                <td>{{ $camera->port }}</td>
+                                <td>{{ $camera->httpport }}</td>
+                                <td>{{ $camera->rtspport }}</td>
+                                <td>{{ $camera->user }}</td>
+                                <td>{{ $camera->pass }}</td>
+                                <td>{{ $camera->passcam }}</td>
+                            @endif
                             <td>{{ $camera->iptinh }}</td>
-                           
                             <td>
                                 <div class="form-button-action" style="display: flex; align-items: center;">
                                     <button class="btn btn-link btn-black" onclick="window.open('http://{{ $camera->domain }}:{{ $camera->httpport }}', '_blank')">
@@ -98,8 +99,6 @@ Danh sách camera
     $(document).ready(function() {
         $('.table').DataTable();
     });
-
 </script>
-
 
 @endsection

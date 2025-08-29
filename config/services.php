@@ -31,4 +31,9 @@ return [
         'region' => env('AWS_DEFAULT_REGION', 'us-east-1'),
     ],
 
+    'zabbix' => [
+    'url'   => env('ZABBIX_API_URL'),
+    'token' => env('ZABBIX_API_TOKEN'),
+    ],
+
 ];

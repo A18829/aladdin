@@ -10,7 +10,7 @@ use App\Http\Controllers\dashboard\dashboardController;
 use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\UserPermissionController;
 use App\Http\Controllers\ExportController;
-
+ use App\Http\Controllers\ZabbixProblemController;
 
 Route::get('', [LoginController::class, 'showLoginForm'])->name('login');
 Route::get('login', [LoginController::class, 'showLoginForm'])->name('login');
@@ -76,5 +76,9 @@ Route::middleware(['auth','role'])->group(function () {
     Route::get('/export/nhahangpdf', [ExportController::class, 'nhahangPDF'])->name('nhahangs.pdf'); //Route xuất pdf bảng nhahang
     Route::get('/export/mangpdf', [ExportController::class, 'mangPDF'])->name('mangs.pdf'); //Route xuất pdf bảng mang
     Route::get('/export/camerapdf', [ExportController::class, 'cameraPDF'])->name('cameras.pdf'); //Route xuất pdf bảng mang
+
+   
+
+    Route::get('/zabbix/problems', [ZabbixProblemController::class, 'index'])->name('zabbix.problems');
 });
 
