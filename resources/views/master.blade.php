@@ -228,11 +228,11 @@
                         <span class="sub-item">Phân quyền</span>
                       </a>
                     </li>
-                    <!--<li>
-                      <a href="#">
-                        <span class="sub-item"></span>
+                    <li>
+                      <a href="{{ route('dsuser') }}">
+                        <span class="sub-item">Người dùng</span>
                       </a>
-                    </li>-->
+                    </li>
                   </ul>
                 </div>
               </li> 

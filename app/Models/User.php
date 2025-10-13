@@ -13,9 +13,7 @@ class User extends Authenticatable
 {
     use HasFactory;
 
-    protected $fillable = [
-        'name', 'email', 'password', 'level', 'status'
-    ];
+   
 
     /**
      * The attributes that should be hidden for serialization.
@@ -39,4 +37,13 @@ class User extends Authenticatable
     {
         return $this->hasMany(UserPermission::class);
     }
+
+
+     public $timestamps = false;
+
+    // Đặt tên bảng nếu khác với tên mặc định
+    protected $table = 'users';
+
+    // Nếu bạn có cột tự động tăng, không cần khai báo
+    protected $fillable = ['id','name','email','level', 'status','password'];
 }

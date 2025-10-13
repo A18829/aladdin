@@ -8,9 +8,10 @@ use App\Http\Controllers\camera\cameraController;
 use App\Http\Controllers\logdangnhap\LogController;
 use App\Http\Controllers\dashboard\dashboardController;
 use App\Http\Controllers\Auth\LoginController;
+use App\Http\Controllers\User\UserController;
 use App\Http\Controllers\UserPermissionController;
 use App\Http\Controllers\ExportController;
- use App\Http\Controllers\ZabbixProblemController;
+use App\Http\Controllers\ZabbixProblemController;
 
 Route::get('', [LoginController::class, 'showLoginForm'])->name('login');
 Route::get('login', [LoginController::class, 'showLoginForm'])->name('login');
@@ -20,6 +21,14 @@ Route::post('logout', [LoginController::class, 'logout'])->name('logout');
 
 // Cho các chức năng muốn sử dụng thì phải qua đăng nhập
 Route::middleware(['auth','role'])->group(function () {
+
+    Route::get('/user', [UserController::class, 'index'])->name('dsuser');
+    Route::get('/user/{id}/edit', [UserController::class, 'edit'])->name('user.edit');
+    Route::post('/user/{id}/update', [UserController::class, 'update'])->name('user.update');
+    Route::get('/usercreate', [UserController::class, 'create'])->name('usercreate');
+    Route::post('/user/store', [UserController::class, 'store'])->name('user.store');
+    Route::delete('/user/{id}', [UserController::class, 'destroy'])->name('user.destroy');
+    Route::post('/checkuser', [UserController::class, 'checkuser'])->name('check.user'); //check tên khi create
 
     Route::get('/nhahang', [NhaHangController::class, 'index'])->name('dsnhahang');
     Route::get('/nhahang/{id}/edit', [NhaHangController::class, 'edit'])->name('nhahang.edit');

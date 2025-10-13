@@ -78,7 +78,7 @@ class ExportController extends Controller
         $cameras = camera::all();
 
         $data = [
-            'title' => 'Aladdin - Danh sách đường truyền',
+            'title' => 'Aladdin - Tài khoản camera',
             'date' => now()->format('d/m/Y'),
             'rows' => $cameras->map(function($camera) {
                 return [
