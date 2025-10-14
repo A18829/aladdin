@@ -222,15 +222,15 @@
                   <span class="caret"></span>
                 </a>
                 <div class="collapse" id="submenu">
-                  <ul class="nav nav-collapse">
-                    <li>
-                      <a href="{{ route('user.permissions.index') }}">
-                        <span class="sub-item">Phân quyền</span>
-                      </a>
-                    </li>
+                  <ul class="nav nav-collapse">                  
                     <li>
                       <a href="{{ route('dsuser') }}">
                         <span class="sub-item">Người dùng</span>
+                      </a>
+                    </li>
+                     <li>
+                      <a href="{{ route('user.permissions.index') }}">
+                        <span class="sub-item">Phân quyền</span>
                       </a>
                     </li>
                   </ul>

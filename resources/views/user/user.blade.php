@@ -22,10 +22,6 @@ Danh sách người dùng
                             <th>Level</th>
                             <th>Status</th>
                             <th>
-                                <!--<button class="btn btn-warning btn-sm" onclick="window.location.href='{{ route('nhahangcreate') }}'">
-                                    <span class="btn-label"><i class="fa fa-plus"></i></span>
-                                    Thêm mới
-                                </button>-->
                                 <button class="btn btn-warning btn-sm" data-bs-toggle="modal" data-bs-target="#createModal">
                                     <span class="btn-label"><i class="fa fa-plus"></i></span>
                                     Thêm mới
@@ -49,8 +45,25 @@ Danh sách người dùng
                             <td>{{ $user->id }}</td>
                             <td>{{ $user->name }}</td>
                             <td>{{ $user->email }}</td>
-                            <td>{{ $user->level }}</td>
-                            <td>{{ $user->status }}</td>
+                            <td>
+                                 @if ($user->level == 1)
+                                    Admin
+                                @elseif ($user->level == 2)
+                                    Sub admin
+                                @else
+                                    User
+                                @endif
+                            </td>
+                            <td class="@if ($user->status == 1) bg-success @elseif ($user->status == 0) bg-warning @else bg-danger @endif">
+                                @if ($user->status == 1)
+                                    Active
+                                @elseif ($user->status == 0)
+                                    Deactive
+                                @else
+                                    Non 
+                                @endif
+
+                            </td>
                             <td>
                                 <div class="form-button-action" style="display: flex; align-items: center;">
                                     <button type="button" class="btn btn-link btn-primary me-2" onclick="window.location='{{ route('user.edit', $user->id) }}'" data-original-title="Edit Task">
@@ -96,7 +109,8 @@ Danh sách người dùng
                             <label>Tên</label>
                             <input type="text" class="form-control" name="name" required>
                             <label>Username/Email</label>
-                            <input type="text" class="form-control" name="email" required>
+                            <input type="text" class="form-control" id="email" name="email" value="{{ old('email') }}" required>
+                            <div id="error-message" style="color: red; display: none;"></div>
                             <label>Password</label>
                             <input type="text" class="form-control" name="password" required>
                             
@@ -128,7 +142,7 @@ Danh sách người dùng
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script>
     $(document).ready(function() {
-        $('#ten').on('blur', function() { // Thay '#ten' bằng ID của trường bạn muốn kiểm tra
+        $('#email').on('blur', function() { // Thay '#ten' bằng ID của trường bạn muốn kiểm tra
             var fieldValue = $(this).val();
 
             $.ajax({

@@ -45,7 +45,7 @@ class UserController extends Controller
             $user->status = $request->input('status');
             $user->save();
 
-            return redirect()->route('dsuser')->with('success', 'Cập nhật nhà hàng thành công.');
+            return redirect()->route('dsuser')->with('success', 'Cập nhật người dùng thành công.');
         } catch (\Exception $e) {
             return back()->withErrors(['error' => 'Cập nhật thất bại: ' . $e->getMessage()]);
         }    
