@@ -52,8 +52,8 @@ Danh sách đường truyền internet
                         @foreach($mangs as $mang)
                         <tr>
                             <td>{{ $mang->id }}</td>
-                            <td>{{ $mang->nhahang }}</td>
-                            <td>{{ $mang->nhamang }}</td>
+                            <td >{{ $mang->nhahang }}</td>
+                            <td class="@if ($mang->nhamang == 'VNPT 18001166') bg-info @elseif ($mang->nhamang == 'VIETTEL 18008119') bg-danger @else bg-warning @endif">{{ $mang->nhamang }}</td>
                             <td>{{ $mang->men }}</td>
                             <td>{{ $mang->account }}</td>
                             <td>{{ $mang->pass }}</td>
