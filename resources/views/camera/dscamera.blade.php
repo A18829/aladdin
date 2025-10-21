@@ -68,19 +68,27 @@ Danh sách camera
                                 <td>{{ $camera->pass }}</td>
                                 <td>{{ $camera->passcam }}</td>
                             @endif
+                            
                             <td>{{ $camera->iptinh }}</td>
                             <td>
                                 <div class="form-button-action" style="display: flex; align-items: center;">
-                                    <button class="btn btn-link btn-black" onclick="window.open('http://{{ $camera->domain }}:{{ $camera->httpport }}', '_blank')">
+                                    <button class="btn btn-link btn-black btn-sm" onclick="window.open('http://{{ $camera->domain }}:{{ $camera->httpport }}', '_blank')">
                                         <span class="btn-label"><i class="fas fa-eye"></i></span>
                                     </button>
-                                    <button type="button" class="btn btn-link btn-primary me-2" onclick="window.location='{{ route('camera.edit', $camera->id) }}'" data-original-title="Edit Task">
+                                    @php
+                                        $ip = explode(' /', $camera->iptinh)[0]; // Lấy giá trị trước dấu gạch chéo
+                                    @endphp
+                                    <button class="btn btn-link btn-danger btn-sm" onclick="window.open('http://{{ $ip }}:{{ $camera->httpport }}', '_blank')">
+                                        <span class="btn-label"><i class="fas fa-eye"></i></span>
+                                    </button>
+                                   
+                                    <button type="button" class="btn btn-link btn-primary me-2 btn-sm" onclick="window.location='{{ route('camera.edit', $camera->id) }}'" data-original-title="Edit Task">
                                         <i class="fa fa-edit"></i>
                                     </button>
                                     <form action="{{ route('camera.destroy', $camera->id) }}" method="POST" style="display: inline;">
                                         @csrf
                                         @method('DELETE')
-                                        <button type="submit" data-bs-toggle="tooltip" title="" class="btn btn-link btn-danger" data-original-title="Remove" onclick="return confirm('Bạn có chắc chắn muốn xóa tài khoản này?')">
+                                        <button type="submit" data-bs-toggle="tooltip" title="" class="btn btn-link btn-danger btn-sm" data-original-title="Remove" onclick="return confirm('Bạn có chắc chắn muốn xóa tài khoản này?')">
                                             <i class="fa fa-times"></i>
                                         </button>
                                     </form>
