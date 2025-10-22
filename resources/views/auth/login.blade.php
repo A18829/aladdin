@@ -119,7 +119,7 @@
                 <form role="form" class="text-start" method="POST" action="{{ route('login') }}">
                    @csrf
                   <div class="input-group input-group-outline my-3">
-                    <label class="form-label">Email</label>
+                    <label class="form-label">User name or Email</label>
                     <input type="text" class="form-control" name="email" required>
                   </div>
                   <div class="input-group input-group-outline mb-3">
