@@ -71,7 +71,7 @@ Ping IP/Domain
 <div class="col-md-6">
     <div class="card">
         <div class="card-header">
-            <h4 class="card-title">Ping tên miền</h4>
+            <h4 class="card-title">Checkport đầu ghi camera</h4>
         </div>
         <div class="card-body">
             <div class="table-responsive">
