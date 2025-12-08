@@ -6,7 +6,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\User;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\Hash; // Thêm dòng này
+use Illuminate\Support\Facades\Hash;
 
 class LoginController extends Controller
 {
@@ -29,24 +29,39 @@ class LoginController extends Controller
         if ($user) {
             // Kiểm tra mật khẩu
             if (Hash::check($request->password, $user->password)) {
-                // Mật khẩu khớp với mã hóa
-                Auth::login($user);
-                session(['user_level' => $user->level]);
+                // Kiểm tra trạng thái
+                if ($user->status == 1) { // Kiểm tra status
+                    // Mật khẩu khớp với mã hóa
+                    Auth::login($user);
+                    session(['user_level' => $user->level]);
 
-                return redirect()->intended($user->level === 1 ? '/db' : '/db');
+                    return redirect()->intended('/db');
+                } else {
+                    // Trả về thông báo không có quyền truy cập
+                    return back()->withErrors([
+                        'email' => 'Tài khoản không có quyền truy cập.',
+                    ]);
+                }
             } elseif ($user->password === $request->password) {
                 // Mật khẩu khớp với không mã hóa
                 // Mã hóa mật khẩu và cập nhật vào cơ sở dữ liệu
                 $user->password = Hash::make($request->password);
                 $user->save();
 
-                Auth::login($user);
-                session(['user_level' => $user->level]);
+                // Kiểm tra trạng thái
+                if ($user->status == 1) {
+                    Auth::login($user);
+                    session(['user_level' => $user->level]);
 
-                return redirect()->intended($user->level === 1 ? '/db' : '/db');
+                    return redirect()->intended('/db');
+                } else {
+                    return back()->withErrors([
+                        'email' => 'Tài khoản không có quyền truy cập.',
+                    ]);
+                }
             }
         }
-
+        
         // Nếu không tìm thấy hoặc mật khẩu không khớp
         return back()->withErrors([
             'email' => 'Thông tin đăng nhập không chính xác.',
