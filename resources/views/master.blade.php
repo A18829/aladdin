@@ -5,7 +5,7 @@
     <title>Hieu - @yield('title')</title>
     <meta content="width=device-width, initial-scale=1.0, shrink-to-fit=no" name="viewport" />
     <meta name="csrf-token" content="{{ csrf_token() }}">
-
+    <meta http-equiv="Content-Security-Policy" content="upgrade-insecure-requests"> <!-- ép đổi sang https để không bị mất icon button khi qua cloudflare -->
 
     <link rel="icon" href="{{ asset('gd1/assets/img/flags/favicon.png') }}" type="image/x-icon" />
 
