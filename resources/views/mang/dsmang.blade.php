@@ -25,8 +25,9 @@ Danh sách đường truyền internet
                             <th>Nhà mạng</th>
                             <th>MEN</th>
                             <th>Account</th>
-                            <th>Pass</th>
+                             @if(Auth::user()->level === 1 || Auth::user()->level === 2) <th>Pass</th> @endif
                             <th>Địa chỉ</th>
+                            <th>KT khu vực</th>
                             <th><button class="btn btn-warning btn-sm" onclick="window.location.href='{{ route('mangcreate') }}'">
                     <span class="btn-label">
                         <i class="fa fa-plus"></i>
@@ -43,8 +44,9 @@ Danh sách đường truyền internet
                             <th>Nhà mạng</th>
                             <th>MEN</th>
                             <th>Account</th>
-                            <th>Pass</th>
+                             @if(Auth::user()->level === 1 || Auth::user()->level === 2)<th>Pass</th> @endif
                             <th>Địa chỉ</th>
+                            <th>KT khu vực</th>
                             <th></th>
                         </tr>
                     </tfoot>
@@ -56,8 +58,9 @@ Danh sách đường truyền internet
                             <td class="@if ($mang->nhamang == 'VNPT 18001166') bg-info @elseif ($mang->nhamang == 'VIETTEL 18008119') bg-danger @else bg-warning @endif">{{ $mang->nhamang }}</td>
                             <td>{{ $mang->men }}</td>
                             <td>{{ $mang->account }}</td>
-                            <td>{{ $mang->pass }}</td>
+                            @if(Auth::user()->level === 1 || Auth::user()->level === 2) <td>{{ $mang->pass }}</td> @endif
                             <td>{{ $mang->diachi }}</td>
+                            <td>{{ $mang->ktkv }}</td>
                             <td>
                                 <div class="form-button-action" style="display: flex; align-items: center;">
                                     <button type="button" class="btn btn-link btn-primary me-2" onclick="window.location='{{ route('mang.edit', $mang->id) }}'" data-original-title="Edit Task">

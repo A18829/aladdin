@@ -48,6 +48,7 @@
                 <th>Account</th>
                 <th>Pass</th>
                 <th>Địa chỉ</th>
+                <th>KT khu vực</th>
             </tr>
         </thead>
         <tbody>
@@ -60,6 +61,7 @@
                     <td>{{ $row['Account'] }}</td>
                     <td>{{ $row['Pass'] }}</td>
                     <td>{{ $row['Địa chỉ'] }}</td>
+                    <td>{{ $row['KT khu vực'] }}</td>
                 </tr>
             @endforeach
         </tbody>

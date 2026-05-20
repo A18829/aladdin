@@ -60,6 +60,7 @@ class ExportController extends Controller
                     'Account' => $mang->account,
                     'Pass' => $mang->pass,
                     'Địa chỉ' => $mang->diachi,
+                    'KT khu vực' => $mang->ktkv,
                 ];    
             })
         ];

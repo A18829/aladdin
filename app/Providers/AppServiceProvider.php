@@ -31,8 +31,9 @@ class AppServiceProvider extends ServiceProvider
                 $view->with('user', Auth::user());
             }
         });
-          if (config('app.env') !== 'local') {
-            URL::forceScheme('https');
+        //đoạn sau để http vẫn dùng được mà https cloudflare vãn hiển thị không mất icon button
+        if (isset($_SERVER['HTTP_X_FORWARDED_PROTO']) && $_SERVER['HTTP_X_FORWARDED_PROTO'] == 'https') {
+            \URL::forceScheme('https');
         }
     }
 }

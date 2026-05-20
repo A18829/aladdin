@@ -34,6 +34,10 @@ Sửa đường truyền
         <label for="diachi" class="form-label">Địa Chỉ</label>
         <input type="text" class="form-control" id="diachi" name="diachi" value="{{ $mang->diachi }}" required>
     </div>
+    <div class="mb-3">
+        <label for="ktkv" class="form-label">KT khu vực</label>
+        <input type="text" class="form-control" id="ktkv" name="ktkv" value="{{ $mang->ktkv }}" required>
+    </div>
     <button type="submit" class="btn btn-primary">Lưu</button>
     <a href="{{ route('dsmang') }}" class="btn btn-secondary">Hủy</a>
 </form>

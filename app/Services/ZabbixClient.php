@@ -11,8 +11,8 @@ class ZabbixClient
 
     public function __construct()
     {
-        $this->baseUrl = 'http://hieunv.ddns.net:2025/zabbix/api_jsonrpc.php';
-        $this->authToken = 'e253c16bce559c7160e4306c423f09c972f430b36a6b288c1fc77564c0108f88';
+        $this->baseUrl = 'http://zb.hieunv.click/api_jsonrpc.php';
+        $this->authToken = '5db3af300ce99a3bf671b7af4cc88cb2a5702dfa1ad07e16a9dc0b95cb5fcb35';
     }
 
     /**
@@ -20,21 +20,27 @@ class ZabbixClient
      */
     private function sendRequest($method, $params, $id = 1)
     {
-        $response = Http::withHeaders([
+        $response = Http::timeout(10)->withHeaders([
             'Authorization' => 'Bearer ' . $this->authToken,
-            'Content-Type' => 'application/json',
+            'Content-Type'  => 'application/json',
         ])->post($this->baseUrl, [
             'jsonrpc' => '2.0',
-            'method' => $method,
-            'params' => $params,
-            'id' => $id,
+            'method'  => $method,
+            'params'  => $params,
+            'id'      => $id,
         ]);
 
-        if ($response->successful()) {
-            return $response->json();
+        $data = $response->json();
+
+        // 👉 thêm debug lỗi (rất quan trọng)
+        if (!$response->successful() || isset($data['error'])) {
+            dd([
+                'status' => $response->status(),
+                'response' => $data
+            ]);
         }
 
-        return null;
+        return $data;
     }
 
     /**
@@ -50,28 +56,24 @@ class ZabbixClient
             'sortorder' => 'DESC',
             'limit' => 500,
             'filter' => [
-                'acknowledged' => '0', // Chỉ lấy các vấn đề chưa được giải quyết
+                'acknowledged' => '0',
             ],
-        ], 2); // Thay đổi id thành 2
+        ], 2);
 
         return $response['result'] ?? [];
     }
 
     /**
-     * Lấy tên host từ hostid
+     * Lấy tên host từ triggerid
      */
     public function getHostById($objectId)
     {
         $response = $this->sendRequest('trigger.get', [
-            'output' => ['hostid'],
-            'triggerids' => $objectId,
+            'output' => [],
+            'triggerids' => [$objectId], // ✅ FIX QUAN TRỌNG
             'selectHosts' => ['host'],
         ]);
 
-        if (isset($response['result'][0]['hosts'][0]['host'])) {
-            return $response['result'][0]['hosts'][0]['host'];
-        }
-
-        return 'Unknown';
+        return $response['result'][0]['hosts'][0]['host'] ?? 'Unknown';
     }
 }

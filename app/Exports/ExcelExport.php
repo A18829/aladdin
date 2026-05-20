@@ -27,6 +27,7 @@ class ExcelExport implements FromCollection, WithHeadings, WithEvents
                     'account' => $item->account,
                     'pass' => $item->pass,
                     'diachi' => $item->diachi,
+                    'ktkv' => $item->ktkv,
                 ];
             } elseif ($this->type === 'nhahang') {
                 return [
@@ -82,6 +83,7 @@ class ExcelExport implements FromCollection, WithHeadings, WithEvents
                 'Account',
                 'Pass',
                 'Địa chỉ',
+                'KT khu vực',
             ];
         } elseif ($this->type === 'nhahang') {
             return [

@@ -6,7 +6,7 @@ Danh sách nhà hàng
 
 @section('content')
 
-<div class="col-md-12">
+<div class="col-md-12" >
     <div class="card">
         <div class="card-header">
             <h4 class="card-title">Danh sách nhà hàng</h4>
