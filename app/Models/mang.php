@@ -13,5 +13,5 @@ class mang extends Model
     protected $table = 'mang';
 
     // Nếu bạn có cột tự động tăng, không cần khai báo
-    protected $fillable = ['id','nhahang','nhamang','men', 'account','pass', 'diachi'];
+    protected $fillable = ['id','nhahang','nhamang','men', 'account','pass', 'diachi', 'ktkv'];
 }
