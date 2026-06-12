@@ -43,10 +43,13 @@ class dashboardcontroller extends Controller
                 )->first(); // Sử dụng first() để lấy một bản ghi duy nhất
         $duongtruyen = mang::select(
                     DB::raw('count(id) as total_mang')
-                )->first(); // Sử dụng first() để lấy một bản ghi duy nhất
+                )
+                 ->where('status', 1)
+                ->first(); // Sử dụng first() để lấy một bản ghi duy nhất
 
-        $nhamang = mang::select('nhamang', 
-                                DB::raw('count(*) as count'))
+        $nhamang = mang::select('nhamang',
+                    DB::raw('count(*) as count'))
+            ->where('status', 1) // Thêm dòng này để chỉ đếm các bản ghi có status = 1
             ->groupBy('nhamang')
             ->get(); 
         // Trả về view với dữ liệu

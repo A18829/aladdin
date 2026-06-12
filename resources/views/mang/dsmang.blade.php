@@ -22,12 +22,13 @@ Danh sách đường truyền internet
                         <tr>
                             <th>ID</th>
                             <th>Nhà hàng</th>
-                            <th>Nhà mạng</th>
+                            <th>Nhà mạng VNPT:{{ $mangs->where('nhamang', 'VNPT 18001166')->where('status', 1)->count() }} VIETTEL:{{ $mangs->where('nhamang', 'VIETTEL 18008119')->where('status', 1)->count() }}</th>
                             <th>MEN</th>
                             <th>Account</th>
                              @if(Auth::user()->level === 1 || Auth::user()->level === 2) <th>Pass</th> @endif
                             <th>Địa chỉ</th>
                             <th>KT khu vực</th>
+                            <th>Trạng thái {{ $mangs->where('status', 1)->count() }}+{{ $mangs->where('status', 0)->count() }}</th>
                             <th><button class="btn btn-warning btn-sm" onclick="window.location.href='{{ route('mangcreate') }}'">
                     <span class="btn-label">
                         <i class="fa fa-plus"></i>
@@ -47,6 +48,7 @@ Danh sách đường truyền internet
                              @if(Auth::user()->level === 1 || Auth::user()->level === 2)<th>Pass</th> @endif
                             <th>Địa chỉ</th>
                             <th>KT khu vực</th>
+                            <th>Trạng thái</th>
                             <th></th>
                         </tr>
                     </tfoot>
@@ -61,6 +63,15 @@ Danh sách đường truyền internet
                             @if(Auth::user()->level === 1 || Auth::user()->level === 2) <td>{{ $mang->pass }}</td> @endif
                             <td>{{ $mang->diachi }}</td>
                             <td>{{ $mang->ktkv }}</td>
+                            <td class="@if ($mang->status == 1) bg-success @elseif ($mang->status == 2) bg-warning @else bg-danger @endif">
+                                 @if ($mang->status == 1)
+                                    Hoạt động
+                                @elseif ($mang->status == 2)
+                                    Sắp hoạt động
+                                @else
+                                    Không hoạt động 
+                                @endif    
+                            </td>
                             <td>
                                 <div class="form-button-action" style="display: flex; align-items: center;">
                                     <button type="button" class="btn btn-link btn-primary me-2" onclick="window.location='{{ route('mang.edit', $mang->id) }}'" data-original-title="Edit Task">

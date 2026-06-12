@@ -61,6 +61,7 @@ class ExportController extends Controller
                     'Pass' => $mang->pass,
                     'Địa chỉ' => $mang->diachi,
                     'KT khu vực' => $mang->ktkv,
+                    'Trạng thái' => $mang->status,
                 ];    
             })
         ];

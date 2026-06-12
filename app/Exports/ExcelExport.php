@@ -28,6 +28,7 @@ class ExcelExport implements FromCollection, WithHeadings, WithEvents
                     'pass' => $item->pass,
                     'diachi' => $item->diachi,
                     'ktkv' => $item->ktkv,
+                    'status' => $item->status == 1 ? 'Hoạt động' : ($item->status == 2 ? 'Sắp hoạt động' : 'Không hoạt động'),
                 ];
             } elseif ($this->type === 'nhahang') {
                 return [

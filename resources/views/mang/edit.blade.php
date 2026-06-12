@@ -38,6 +38,17 @@ Sửa đường truyền
         <label for="ktkv" class="form-label">KT khu vực</label>
         <input type="text" class="form-control" id="ktkv" name="ktkv" value="{{ $mang->ktkv }}" required>
     </div>
+    <div class="mb-3">
+         <label for="status">Trạng thái</label>
+                            <select class="form-select" id="status" name="status">
+                                <option value="{{ $mang->status }}" selected>
+                                    {{ $mang->status == 1 ? 'Hoạt động' : ($nhahang->status == 2 ? 'Sắp hoạt động' : 'Không hoạt động') }}
+
+                                </option>
+                                <option value="1">Hoạt động</option>
+                                <option value="0">Không hoạt động</option>
+                            </select>
+    </div>
     <button type="submit" class="btn btn-primary">Lưu</button>
     <a href="{{ route('dsmang') }}" class="btn btn-secondary">Hủy</a>
 </form>

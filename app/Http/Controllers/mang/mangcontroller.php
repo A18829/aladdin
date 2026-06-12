@@ -36,6 +36,7 @@ class mangcontroller extends Controller
             'pass' => 'required|string|max:255',
             'diachi' => 'required|string|max:255',
             'ktkv' => 'required|string|max:255',
+            'status' => 'required|string|max:255',
         ]);
         try {
             $mang = mang::findOrFail($id);
@@ -46,6 +47,7 @@ class mangcontroller extends Controller
             $mang->pass = $request->input('pass');
             $mang->diachi = $request->input('diachi');
             $mang->ktkv = $request->input('ktkv');
+            $mang->status = $request->input('status');
             $mang->save();
 
             return redirect()->route('dsmang')->with('success', 'Cập nhật thành công.');
@@ -72,6 +74,7 @@ class mangcontroller extends Controller
             'pass' => 'required|string|max:255',
             'diachi' => 'required|string|max:255',
             'ktkv' => 'required|string|max:255',
+            'status' => 'required|string|max:255',
         ]);
     
         try {
@@ -88,6 +91,7 @@ class mangcontroller extends Controller
                 'pass' => $request->pass,
                 'diachi' => $request->diachi,
                 'ktkv' => $request->ktkv,
+                'status' => $request->status,
             ]);
 
             return redirect()->route('dsmang')->with('success', 'Đường truyền đã được thêm mới!');
