@@ -23,7 +23,9 @@ Danh sách đường truyền internet
                             <th>ID</th>
                             <th>Nhà hàng</th>
                             <th>Nhà mạng VNPT:{{ $mangs->where('nhamang', 'VNPT 18001166')->where('status', 1)->count() }} VIETTEL:{{ $mangs->where('nhamang', 'VIETTEL 18008119')->where('status', 1)->count() }}</th>
-                            <th>MEN</th>
+                            <th>MEN <br>
+                                Ip tĩnh: {{ $mangs->filter(fn($item) => str_contains(strtolower($item->men), 'iptinh') && $item->status == 1)->count() }}
+                            </th>
                             <th>Account</th>
                              @if(Auth::user()->level === 1 || Auth::user()->level === 2) <th>Pass</th> @endif
                             <th>Địa chỉ</th>

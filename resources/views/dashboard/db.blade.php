@@ -165,7 +165,7 @@ Dashboard
                 labels: labels, // Sử dụng mảng labels đã tạo
                 datasets: [
                     {
-                        label:[ " Tổng số nhà hàng: {{ $tong->total_nhahang }}", " Nhà hàng theo thương hiệu"],
+                        label:[ " Tổng: {{ $tong->total_nhahang }}", " Nhà hàng theo thương hiệu"],
                         backgroundColor: "rgb(23, 125, 255)",
                         borderColor: "rgb(23, 125, 255)",
                         data: data, // Sử dụng mảng data đã tạo
@@ -422,7 +422,7 @@ Dashboard
                                               data: stt22,
                                             },
                                             {
-                                              label: "Chưa hoạt động",
+                                              label: "Ngừng hoạt động",
                                               backgroundColor: "#f3545d",
                                               borderColor: "#f3545d",
                                               data: stt00,
@@ -438,7 +438,7 @@ Dashboard
                                           },
                                           title: {
                                             display: true,
-                                            text: " Tổng số nhà hàng: {{ $data->sum('stt1') + $data->sum('stt2') + $data->sum('stt0') }} | Hoạt động: {{ $data->sum('stt1') }} | Sắp hoạt động: {{ $data->sum('stt2') }} | Chưa hoạt động: {{ $data->sum('stt0') }}",
+                                            text: " Tổng: {{ $data->sum('stt1') + $data->sum('stt2') + $data->sum('stt0') }} | Hoạt động: {{ $data->sum('stt1') }} | Sắp hoạt động: {{ $data->sum('stt2') }} | Ngừng hoạt động: {{ $data->sum('stt0') }}",
                                           },
                                           tooltips: {
                                             mode: "index",
