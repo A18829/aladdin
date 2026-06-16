@@ -61,7 +61,7 @@ Dashboard
         <div class="col-md-6">
             <div class="card">
                 <div class="card-header">
-                    <div class="card-title">Đầu ghi</div>
+                    <div class="card-title">Đầu ghi camera</div>
                 </div>
                 <div class="card-body">
                     <div class="chart-container">
