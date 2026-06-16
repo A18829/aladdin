@@ -438,7 +438,7 @@ Dashboard
                                           },
                                           title: {
                                             display: true,
-                                            text: " Tổng số nhà hàng: {{ $tong->total_nhahang }} | Hoạt động: {{ $data->sum('stt1') }} | Sắp hoạt động: {{ $data->sum('stt2') }} | Chưa hoạt động: {{ $data->sum('stt0') }}",
+                                            text: " Tổng số nhà hàng: {{ $data->sum('stt1') + $data->sum('stt2') + $data->sum('stt0') }} | Hoạt động: {{ $data->sum('stt1') }} | Sắp hoạt động: {{ $data->sum('stt2') }} | Chưa hoạt động: {{ $data->sum('stt0') }}",
                                           },
                                           tooltips: {
                                             mode: "index",

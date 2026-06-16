@@ -27,6 +27,7 @@ class dashboardcontroller extends Controller
 
         $rj = Nhahang::select('ruijie', 
                                 DB::raw('count(*) as count'))
+            ->where('status', 1)
             ->groupBy('ruijie')
             ->get(); 
 
@@ -40,7 +41,9 @@ class dashboardcontroller extends Controller
                     DB::raw('SUM(daucam) as total_daucam'),
                     DB::raw('SUM(matcam) as total_matcam'),
                     DB::raw('SUM(ruijie) as total_ruijie')
-                )->first(); // Sử dụng first() để lấy một bản ghi duy nhất
+                )
+                ->where('status', 1)
+                ->first(); // Sử dụng first() để lấy một bản ghi duy nhất
         $duongtruyen = mang::select(
                     DB::raw('count(id) as total_mang')
                 )
