@@ -62,7 +62,11 @@ Danh sách đường truyền internet
                             <td class="@if ($mang->nhamang == 'VNPT 18001166') bg-info @elseif ($mang->nhamang == 'VIETTEL 18008119') bg-danger @else bg-warning @endif">{{ $mang->nhamang }}</td>
                             <td>{{ $mang->men }}</td>
                             <td>{{ $mang->account }}</td>
-                            @if(Auth::user()->level === 1 || Auth::user()->level === 2) <td>{{ $mang->pass }}</td> @endif
+                           @if(Auth::user()->level === 1 || Auth::user()->level === 2) 
+                                <td>
+                                    <span class="password-field" onclick="this.innerText = this.innerText === '••••••••' ? '{{ $mang->pass }}' : '••••••••'" style="cursor: pointer; font-weight: bold;" title="Click để hiện/ẩn mật khẩu">••••••••</span>
+                                </td> 
+                            @endif
                             <td>{{ $mang->diachi }}</td>
                             <td>{{ $mang->ktkv }}</td>
                             <td class="@if ($mang->status == 1) bg-success @elseif ($mang->status == 2) bg-warning @else bg-danger @endif">

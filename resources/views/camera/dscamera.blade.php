@@ -25,8 +25,14 @@ Danh sách camera
                                 <th>Http Port</th>
                                 <th>Rtsp Port</th>
                                 <th>User</th>
-                                <th>Pass đầu ghi</th>
-                                <th>Pass mắt cam</th>
+                                <!-- Thống nhất nút bấm ẩn/hiện trên tiêu đề Pass đầu ghi -->
+                                <th onclick="toggleColumnPasswords('pass-daughi')" style="cursor: pointer; user-select: none;" title="Bấm để ẩn/hiện tất cả mật khẩu đầu ghi">
+                                    Pass đầu ghi <i class="fa fa-eye"></i>
+                                </th>
+                                <!-- Thống nhất nút bấm ẩn/hiện trên tiêu đề Pass mắt cam -->
+                                <th onclick="toggleColumnPasswords('pass-matcam')" style="cursor: pointer; user-select: none;" title="Bấm để ẩn/hiện tất cả mật khẩu mắt cam">
+                                    Pass mắt cam <i class="fa fa-eye"></i>
+                                </th>
                             @endif
                             <th>Ip tĩnh</th>
                             <th>
@@ -65,8 +71,23 @@ Danh sách camera
                                 <td>{{ $camera->httpport }}</td>
                                 <td>{{ $camera->rtspport }}</td>
                                 <td>{{ $camera->user }}</td>
-                                <td>{{ $camera->pass }}</td>
-                                <td>{{ $camera->passcam }}</td>
+                                <td>
+                                    <span class="password-field pass-daughi" 
+                                          data-pass="{{ $camera->pass }}" 
+                                          data-hidden="true" 
+                                          onclick="toggleSinglePassword(this)" 
+                                          style="cursor: pointer; font-weight: bold;" 
+                                          title="Click để hiện/ẩn mật khẩu">••••••••</span>
+                                </td>
+                                <!-- Cột Pass mắt cam giữ nguyên font chữ cũ -->
+                                <td>
+                                    <span class="password-field pass-matcam" 
+                                          data-pass="{{ $camera->passcam }}" 
+                                          data-hidden="true" 
+                                          onclick="toggleSinglePassword(this)" 
+                                          style="cursor: pointer; font-weight: bold;" 
+                                          title="Click để hiện/ẩn mật khẩu">••••••••</span>
+                                </td>  
                             @endif
                             
                             <td>{{ $camera->iptinh }}</td>
@@ -76,7 +97,7 @@ Danh sách camera
                                         <span class="btn-label"><i class="fas fa-eye"></i></span>
                                     </button>
                                     @php
-                                        $ip = explode(' /', $camera->iptinh)[0]; // Lấy giá trị trước dấu gạch chéo
+                                        $ip = explode(' /', $camera->iptinh)[0]; 
                                     @endphp
                                     <button class="btn btn-link btn-danger btn-sm" onclick="window.open('http://{{ $ip }}:{{ $camera->httpport }}', '_blank')">
                                         <span class="btn-label"><i class="fas fa-eye"></i></span>
@@ -109,4 +130,40 @@ Danh sách camera
     });
 </script>
 
+<!--Script ẩn password -->
+<script>
+// 1. Hàm xử lý khi click vào từng ô mật khẩu riêng lẻ
+function toggleSinglePassword(element) {
+    const realPass = element.getAttribute('data-pass');
+    const isHidden = element.getAttribute('data-hidden') === 'true';
+    
+    if (isHidden) {
+        element.innerText = realPass;
+        element.setAttribute('data-hidden', 'false');
+    } else {
+        element.innerText = '••••••••';
+        element.setAttribute('data-hidden', 'true');
+    }
+}
+
+// 2. Hàm xử lý ẩn/hiện hàng loạt theo cột khi click vào TH tương ứng
+function toggleColumnPasswords(className) {
+    const items = document.querySelectorAll('.' + className);
+    if (items.length === 0) return;
+
+    // ĐÃ SỬA: Thêm [0] để lấy trạng thái của hàng đầu tiên chính xác
+    const firstHidden = items[0].getAttribute('data-hidden') === 'true';
+
+    items.forEach(element => {
+        const realPass = element.getAttribute('data-pass');
+        if (firstHidden) {
+            element.innerText = realPass;
+            element.setAttribute('data-hidden', 'false');
+        } else {
+            element.innerText = '••••••••';
+            element.setAttribute('data-hidden', 'true');
+        }
+    });
+}
+</script>
 @endsection
