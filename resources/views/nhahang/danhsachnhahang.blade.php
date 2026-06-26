@@ -21,10 +21,10 @@ Danh sách nhà hàng
                             <th>ID</th>
                             <th>Thương hiệu</th>
                             <th>Nhà Thầu</th>
-                            <th>Ruijie: {{ $nhahangs->sum('ruijie') }}</th>
-                            <th>Đầu cam: {{ $nhahangs->sum('daucam') }}</th>
-                            <th>Mắt cam: {{ $nhahangs->sum('matcam') }}</th>
-                            <th>Nhà hàng: {{ $nhahangs->count('nhahang') }} </th>
+                            <th>Ruijie: {{ $nhahangs->where('status', 1)->sum('ruijie') }}</th>
+                            <th>Đầu cam: {{ $nhahangs->where('status', 1)->sum('daucam') }}</th>
+                            <th>Mắt cam: {{ $nhahangs->where('status', 1)->sum('matcam') }}</th>
+                            <th>Nhà hàng: {{ $nhahangs->where('status', 1)->count('nhahang') }} </th>
                             <th>Địa chỉ</th>                          
                             <th>Ip tĩnh</th>
                             <th>Ip máy chủ</th>
