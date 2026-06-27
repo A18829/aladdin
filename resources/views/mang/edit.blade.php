@@ -10,6 +10,7 @@ Sửa đường truyền
 
 <form action="{{ route('mang.update', $mang->id) }}" method="POST">
     @csrf
+    @method('PUT')
     <div class="mb-3">
         <label for="nhahang" class="form-label">Nhà hàng</label>
         <input type="text" class="form-control" id="nhahang" name="nhahang" value="{{ $mang->nhahang }}" required>
@@ -50,7 +51,7 @@ Sửa đường truyền
                             </select>
     </div>
     <button type="submit" class="btn btn-primary">Lưu</button>
-    <a href="{{ route('dsmang') }}" class="btn btn-secondary">Hủy</a>
+    <a href="{{ route('mang.index') }}" class="btn btn-secondary">Hủy</a>
 </form>
 
 @endsection

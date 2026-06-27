@@ -184,7 +184,7 @@
                 <div class="collapse" id="forms">   
                   <ul class="nav nav-collapse">
                     <li>
-                      <a href="{{ route('dsmang') }}">
+                      <a href="{{ route('mang.index') }}">
                         <span class="sub-item">DS đường truyền</span>
                       </a>
                     </li>

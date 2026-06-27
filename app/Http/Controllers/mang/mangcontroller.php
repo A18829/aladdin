@@ -7,6 +7,7 @@ use App\Exports\ExcelExport;
 use Maatwebsite\Excel\Facades\Excel;
 
 
+
 class mangcontroller extends Controller
 {
 
@@ -16,8 +17,9 @@ class mangcontroller extends Controller
         $mangs = mang::all();
 
         // Trả về view với dữ liệu
-        return view('mang.dsmang', compact('mangs'));
-    }
+        return view('mang.index', compact('mangs'));
+    } 
+
 
      public function edit($id)
     {
@@ -50,7 +52,7 @@ class mangcontroller extends Controller
             $mang->status = $request->input('status');
             $mang->save();
 
-            return redirect()->route('dsmang')->with('success', 'Cập nhật thành công.');
+            return redirect()->route('mang.index')->with('success', 'Cập nhật thành công.');
         } catch (\Exception $e) {
             return back()->withErrors(['error' => 'Cập nhật thất bại: ' . $e->getMessage()]);
         }       
@@ -94,7 +96,7 @@ class mangcontroller extends Controller
                 'status' => $request->status,
             ]);
 
-            return redirect()->route('dsmang')->with('success', 'Đường truyền đã được thêm mới!');
+            return redirect()->route('mang.index')->with('success', 'Đường truyền đã được thêm mới!');
         } catch (\Exception $e) {
             return back()->withErrors(['error' => 'Không thể thêm đường truyền: ' . $e->getMessage()]);
         }
@@ -105,9 +107,9 @@ class mangcontroller extends Controller
         $mang = mang::find($id);
         if ($mang) {
             $mang->delete();
-            return redirect()->route('dsmang')->with('success', 'Đường truyền đã được xóa!');
+            return redirect()->route('mang.index')->with('success', 'Đường truyền đã được xóa!');
         }
-        return redirect()->route('dsmang')->with('error', 'Đường truyền không tồn tại!');
+        return redirect()->route('mang.index')->with('error', 'Đường truyền không tồn tại!');
     }
 
     public function export()

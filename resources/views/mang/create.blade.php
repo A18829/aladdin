@@ -48,7 +48,7 @@ Thêm Mới đường truyền
                             </select>
     </div>
     <button type="submit" class="btn btn-primary">Thêm</button>
-    <a href="{{ route('dsmang') }}" class="btn btn-secondary">Hủy</a>
+    <a href="{{ route('mang.index') }}" class="btn btn-secondary">Hủy</a>
 </form>
 
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
