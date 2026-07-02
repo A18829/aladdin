@@ -19,7 +19,7 @@ class NhaHangController extends Controller
         $nhathaus = NhaThau::all();
         $thuonghieu = ThuongHieu::all();
         // Trả về view với dữ liệu
-        return view('nhahang.danhsachnhahang', compact('nhahangs','nhathaus','thuonghieu'));
+        return view('Nhahang.index', compact('nhahangs','nhathaus','thuonghieu'));
     }
 
      public function edit($id)
@@ -61,7 +61,7 @@ class NhaHangController extends Controller
             $nhahang->status = $request->input('status');
             $nhahang->save();
 
-            return redirect()->route('dsnhahang')->with('success', 'Cập nhật nhà hàng thành công.');
+            return redirect()->route('Nhahang.index')->with('success', 'Cập nhật nhà hàng thành công.');
         } catch (\Exception $e) {
             return back()->withErrors(['error' => 'Cập nhật thất bại: ' . $e->getMessage()]);
         }    
@@ -113,7 +113,7 @@ class NhaHangController extends Controller
                 'status' => $request->status,
             ]);
 
-            return redirect()->route('dsnhahang')->with('success', 'Nhà hàng đã được thêm mới!');
+            return redirect()->route('Nhahang.index')->with('success', 'Nhà hàng đã được thêm mới!');
 
         } catch (\Exception $e) {
             return back()->withErrors(['error' => 'Không thể thêm nhà hàng: ' . $e->getMessage()]);
@@ -137,9 +137,9 @@ class NhaHangController extends Controller
         $nhahang = NhaHang::find($id);
         if ($nhahang) {
             $nhahang->delete();
-            return redirect()->route('dsnhahang')->with('success', 'Nhà hàng đã được xóa!');
+            return redirect()->route('Nhahang.index')->with('success', 'Nhà hàng đã được xóa!');
         }
-        return redirect()->route('dsnhahang')->with('error', 'Nhà hàng không tồn tại!');
+        return redirect()->route('Nhahang.index')->with('error', 'Nhà hàng không tồn tại!');
     }
     
     public function export()

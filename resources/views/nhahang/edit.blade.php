@@ -8,8 +8,9 @@ Chỉnh Sửa Nhà Hàng
 
 <h3>Chỉnh Sửa Nhà Hàng</h3>
 
-<form action="{{ route('nhahang.update', $nhahang->id) }}" method="POST">
+<form action="{{ route('Nhahang.update', $nhahang->id) }}" method="POST">
     @csrf
+    @method('PUT')
 <div class="col-md-12">
     <div class="card">
         <div class="card-body">
@@ -20,7 +21,7 @@ Chỉnh Sửa Nhà Hàng
                             <select class="form-select" id="vung" name="vung">
                                 <option value="{{ $nhahang->vung }}">{{ $nhahang->vung }}</option>
                                 @foreach($thuonghieu as $thuonghieus)
-                                    <option value="{{ $thuonghieus->thuonghieu }}">{{ $thuonghieus->thuonghieu }}</option>
+                                    <option value="{{ $thuonghieus->thuonghieu }}">{{ $thuonghieus->fullname }}</option>
                                 @endforeach                              
                             </select>
                     </div>
@@ -100,7 +101,7 @@ Chỉnh Sửa Nhà Hàng
     </div>
 </div>                
     <button type="submit" class="btn btn-primary">Lưu</button>
-    <a href="{{ route('dsnhahang') }}" class="btn btn-secondary">Hủy</a>
+    <a href="{{ route('Nhahang.index') }}" class="btn btn-secondary">Hủy</a>
 </form>
 
 

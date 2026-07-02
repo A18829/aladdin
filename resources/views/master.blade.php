@@ -210,7 +210,7 @@
                       </a>
                     </li> -->
                     <li>
-                      <a href="{{ route('dsnhahang') }}">
+                      <a href="{{ route('Nhahang.index') }}">
                         <span class="sub-item">DS Nhà hàng</span>
                       </a>
                     </li>

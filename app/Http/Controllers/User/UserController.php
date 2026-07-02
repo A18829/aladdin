@@ -3,10 +3,12 @@ namespace App\Http\Controllers\User;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\User;
+use App\Models\UserPermission;
 use App\Models\NhaThau;
 use App\Models\ThuongHieu;
 use App\Exports\ExcelExport;
 use Maatwebsite\Excel\Facades\Excel;
+use Illuminate\Support\Facades\DB;
 
 
 class UserController extends Controller
@@ -108,6 +110,7 @@ class UserController extends Controller
     {
         $user = User::find($id);
         if ($user) {
+            DB::table('user_permissions')->where('user_id', $id)->delete();
             $user->delete();
             return redirect()->route('dsuser')->with('success', 'Người dùng đã được xóa!');
         }

@@ -13,5 +13,5 @@ class ThuongHieu extends Model
     protected $table = 'thuonghieu';
 
     // Nếu bạn có cột tự động tăng, không cần khai báo
-    protected $fillable = ['id','thuonghieu'];
+    protected $fillable = ['id','thuonghieu','fullname'];
 }

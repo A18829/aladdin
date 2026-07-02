@@ -30,6 +30,7 @@ Route::middleware(['auth','role'])->group(function () {
     Route::delete('/user/{id}', [UserController::class, 'destroy'])->name('user.destroy');
     Route::post('/checkuser', [UserController::class, 'checkuser'])->name('check.user'); //check tên khi create
 
+    /*
     Route::get('/nhahang', [NhaHangController::class, 'index'])->name('dsnhahang');
     Route::get('/nhahang/{id}/edit', [NhaHangController::class, 'edit'])->name('nhahang.edit');
     Route::post('/nhahang/{id}/update', [NhaHangController::class, 'update'])->name('nhahang.update');
@@ -37,6 +38,13 @@ Route::middleware(['auth','role'])->group(function () {
     Route::post('/nhahang/store', [NhaHangController::class, 'store'])->name('nhahang.store');
     Route::delete('/nhahang/{id}', [NhaHangController::class, 'destroy'])->name('nhahang.destroy');
     Route::post('/checknhahang', [NhaHangController::class, 'checknhahang'])->name('check.nhahang'); //check tên khi create
+    */
+
+     Route::controller(Nhahangcontroller::class)->group(function () {
+        Route::post('/checknhahang', 'checknhahang')->name('check.nhahang');
+        Route::resource('Nhahang', Nhahangcontroller::class);
+    
+    });
     
     /*
     Route::get('/mang', [mangcontroller::class, 'index'])->name('dsmang');
@@ -48,9 +56,9 @@ Route::middleware(['auth','role'])->group(function () {
     Route::post('/checkmang', [mangcontroller::class, 'checkmang'])->name('check.mang'); //check tên khi create
     */
 
-    Route::controller(mangcontroller::class)->group(function () {
+    Route::controller(Mangcontroller::class)->group(function () {
         Route::post('/checkmang', 'checkmang')->name('check.mang');
-        Route::resource('mang', mangcontroller::class);
+        Route::resource('mang', Mangcontroller::class);
     
     });
 

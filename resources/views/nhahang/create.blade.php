@@ -7,7 +7,7 @@ Thêm Mới Nhà Hàng
 @section('content')
 
 <h5>Thêm Mới Nhà Hàng</h5>
-<form action="{{ route('nhahang.store') }}" method="POST">
+<form action="{{ route('Nhahang.store') }}" method="POST">
     @csrf
 
 <div class="col-md-12">
@@ -96,7 +96,7 @@ Thêm Mới Nhà Hàng
     </div>
 </div>
     <button type="submit" class="btn btn-primary">Thêm</button>
-    <a href="{{ route('dsnhahang') }}" class="btn btn-secondary">Hủy</a>
+    <a href="{{ route('nhahang.index') }}" class="btn btn-secondary">Hủy</a>
 </form>
 
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
